@@ -6,4 +6,8 @@ public class Driver {
         GUI = new SystemUI();
         GUI.setVisible(true);   
     }
+
+    public static DataClass getData(){
+        return techData;
+    }
 }
