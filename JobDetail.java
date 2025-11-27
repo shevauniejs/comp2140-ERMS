@@ -17,14 +17,12 @@ public class JobDetail extends JPanel{
         private JLabel cusNameL, cusNumberL, cusEmailL;
         private JLabel devTypeL, devBrandL, devSerialL;
         private JLabel devIssueL, devDiagnosisL, devNotesL;
-        private JLabel jobCostL, jobPaidL;
 
         private JRadioButton statPend, statInProg, statAwait, statComplete;
 
         private JTextField cusNameTF, custNumTF, cusEmailTF;
         private JTextField devTypeTF, devBrandTF, devSerialTF;
         private JTextField devIssTF, devDiagTF, devNotesTF;
-        private JTextField jobCostTF, jobPaidTF;
 
         private JButton submitData;
 
@@ -38,8 +36,6 @@ public class JobDetail extends JPanel{
         devIssueL = new JLabel("DEVICE ISSUE:");
         devDiagnosisL = new JLabel("TECHNICIAN'S DIAGNOSIS:");
         devNotesL = new JLabel("TECHNICIAN'S NOTES:");
-        jobCostL = new JLabel("JOB COST:");
-        jobPaidL = new JLabel("AMOUNT PAID:");
 
         statPend = new JRadioButton("PENDING");
         statAwait = new JRadioButton("AWAITING PARTS");
@@ -61,8 +57,6 @@ public class JobDetail extends JPanel{
         devIssTF = new JTextField();
         devDiagTF = new JTextField(); 
         devNotesTF = new JTextField();
-        jobCostTF = new JTextField();
-        jobPaidTF = new JTextField();
 
         devPanel.setLayout(new GridLayout(12,1));
         devPanel.setPreferredSize(new Dimension(400,700));
@@ -95,12 +89,6 @@ public class JobDetail extends JPanel{
         devPanel.add(devNotesL);
         devPanel.add(devNotesTF);
 
-        devPanel.add(jobCostL);
-        devPanel.add(jobCostTF);
-
-        devPanel.add(jobPaidL);
-        devPanel.add(jobPaidTF);
-
         devPanel.add(subStatPanel);
 
         submitData = new JButton("SUBMIT");
@@ -119,16 +107,17 @@ public class JobDetail extends JPanel{
                     Customer currCustomer = new Customer(cusNameTF.getText(), custNumTF.getText(), cusEmailTF.getText(), currDevice);
                     Driver.getData().getCustomers().add(currCustomer);
                     //Create Job and add to date Job list
-                    Job currJob = new Job(currCustomer,currDevice,Double.parseDouble(jobCostTF.getText()), Double.parseDouble(jobPaidTF.getText()), devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText());
-                    Driver.getData().getJobs().add(currJob);
+                    Job currJob = new Job(currCustomer,currDevice,0.0, 0.0, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText());
                     submitData.setBackground(Color.green);
-                    try {
+                    PaymentProc pay = new PaymentProc(currJob);
+                    pay.setVisible(true);
+                    /*try {
                         Thread.sleep(1000, 0);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    devPanel.setVisible(false);
+                    devPanel.setVisible(false);*/
                 }
         }
     }

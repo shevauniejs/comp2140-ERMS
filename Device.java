@@ -20,4 +20,9 @@ public class Device{
         devID = countID;
         return devID;
     }
+
+    public String toString(){
+        String str = "TYPE: "+type+"\tSERIAL #:"+serial+"\nBRAND: "+brand+"\tDATE: "+dateRcvd.toString();
+        return str;
+    }
 }

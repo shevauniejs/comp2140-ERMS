@@ -1,3 +1,5 @@
+import java.time.ZonedDateTime;
+
 public class Job{
     private Device jobDevice;
     private Customer jobCustomer;
@@ -15,5 +17,32 @@ public class Job{
         this.techIssue = _techIssue;
         this.techDiagnosis = _diagnosis;
         this.techNotes = _techNotes;
+    }
+
+    public double getPaid(){
+        return this.amntPaid;
+    }
+
+    public double getCost(){
+        return this.jobCost;
+    }
+
+    public void setPaid(double p){
+        this.amntPaid = p;
+    }
+
+    public void setCost(double c){
+        this.jobCost = c;
+    }
+
+    public String toString(){
+        String str = "=======================BWOYZE+++ELECTRONICS===================\n"+
+                     "\n=======================96c MOLYNES ROAD (876-366-9211)=====================\n"+
+                     "\n\n"+jobCustomer+
+                     "\n\nCost: $"+jobCost+"\nAmount Paid: $"+amntPaid+"\nBalance: $"+(jobCost-amntPaid)+
+                     "\n\nDevices are held for a maximum of 30 days after technician notifies/calls you.\n"+
+                     "Failure to retrieve after 30 days will incur a storage fee or device being sold."+
+                     "\n\nThanks for doing business!";
+        return str;
     }
 }
