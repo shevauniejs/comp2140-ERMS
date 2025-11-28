@@ -20,20 +20,15 @@ public class DeviceTracker extends JPanel{
     private JScrollPane scrollPane;
 
     public DeviceTracker(){
-
         devices = loadDevices("Devices.dat");
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
         devTableModel = new DefaultTableModel(columnNames,0);
         devTable = new JTable(devTableModel);
         showTable(devices);
-
         devTable.setPreferredScrollableViewportSize(new Dimension(500, devices.size()*15 +50));
         devTable.setFillsViewportHeight(true);
-
         scrollPane = new JScrollPane(devTable); //Why are you here?
-       
         add(scrollPane);
-
         devTable.setSelectionBackground(Color.yellow);
     }
 
@@ -49,7 +44,6 @@ public class DeviceTracker extends JPanel{
     private void addToTable(Device d){
         String[] item={Integer.toString(d.getDevID()),""+d.getType(),""+ d.getSerialNum(),""+d.getBrand_ModelInfo(),""+ d.getStatus(),""+d.getDate()}; //Add U data to library, each as a string
         devTableModel.addRow(item); //from the model above, make it a new row        
-
     }
 
     private ArrayList<Device> loadDevices(String devDat){
@@ -72,7 +66,6 @@ public class DeviceTracker extends JPanel{
                 Device dev = new Device(devId, serial, brand, type, status, date); //make new Device from read from file
                 devList.add(dev); //add new Device to ArrayList
             }
-
             dev_scan.close(); //close scanner
         }
         catch(IOException e)
@@ -84,18 +77,12 @@ public class DeviceTracker extends JPanel{
         String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
         Date dateObject = null;
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-
-
         try {
-            // Attempt to parse the string into a Date object
              dateObject = formatter.parse(dateString);
         } catch (ParseException e) {
-            // This exception is thrown if the input string does not match the pattern
-            System.err.println("❌ Error parsing date: The string format did not match the pattern.");
+            System.err.println("Error parsing date: The string format did not match the pattern.");
             e.printStackTrace();
         }
-
         return dateObject;
     }
-    
 }
