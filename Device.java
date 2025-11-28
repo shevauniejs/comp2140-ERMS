@@ -3,7 +3,7 @@ import java.util.Date;
 public class Device{
     static int countID = 000000000;
     private int devID;
-    private String  serial, brand, type, status;
+    private String  serial, brand, type;
     Date dateRcvd;   
     
     public Device(){}
