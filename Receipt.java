@@ -29,9 +29,9 @@ public class Receipt extends JFrame{
             // This method creates the file if it doesn't exist and overwrites it if it does.
             Files.writeString(filePath, details);
             
-            System.out.println("✅ File exported successfully!");
+            System.out.println("File exported successfully!");
         } catch (IOException e) {
-            System.err.println("❌ Failed to write the file:");
+            System.err.println("Failed to write the file:");
             e.printStackTrace();
         }
     }
