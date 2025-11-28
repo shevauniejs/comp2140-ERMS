@@ -11,13 +11,13 @@ public class DataClass {
         jobs = new ArrayList<Job>();
     }
 
-    public static ArrayList<Job> getJobs(){
+    public ArrayList<Job> getJobs(){
         return jobs;
     }
-    public static ArrayList<Device> getDevices(){
+    public ArrayList<Device> getDevices(){
         return devices;
     }    
-    public static ArrayList<Customer> getCustomers(){
+    public ArrayList<Customer> getCustomers(){
         return customers;
     }
 }
