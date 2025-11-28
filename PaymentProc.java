@@ -19,15 +19,18 @@ public class PaymentProc extends JFrame{
 
     public PaymentProc(Job aJob){
         this.setPreferredSize(new Dimension(400,300));
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         currJob = aJob;
-        paymentPane = new JPanel(new GridLayout(3, 2));
+        paymentPane = new JPanel(new GridLayout(4, 2));
         paymentPane.setSize(new Dimension(380,280));
         lCost = new JLabel("COST");
         lPaid = new JLabel("PAID");
+
         lBalance = new JLabel();
 
         tfCost = new JTextField();
         tfPaid = new JTextField();
+
 
         printReceipt = new JButton("PRINT RECEIPT");
         printReceipt.addActionListener(new ButtonListener());

@@ -12,8 +12,9 @@ public class Receipt extends JFrame{
     private JTextArea recLabel;
     public Receipt(String _details){
         this.details = _details;
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         recLabel = new JTextArea(details);
-        setSize(new Dimension(600,500));  
+        setSize(new Dimension(800,500));  
         getContentPane().add(recLabel);  
         try{
         receipt = new FileWriter("receipt.txt");

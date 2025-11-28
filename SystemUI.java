@@ -22,13 +22,13 @@ public class SystemUI extends JFrame{
     private JButton viewDevices;
     private JButton viewCust;
     private JButton listPayments;
-    private boolean detailsActive;
 
     //protected JLabel statLabel;
 
 
     public SystemUI(){
-        detailsActive = false;
+        UI.setTitle("Electronic Repair MS");
+        ButtonListener coreListener = new ButtonListener();
         UI.setDefaultCloseOperation(EXIT_ON_CLOSE);
         UI.setPreferredSize(new Dimension(1024,768)); //frame size
         //statLabel = new JLabel("STATUS");
@@ -42,17 +42,18 @@ public class SystemUI extends JFrame{
         optionsPanel.setPreferredSize(new Dimension(300,720));
         detailsPanel.setPreferredSize(new Dimension(700,720));
 
-        addJob = new JButton("Add Job");
-        viewJob = new JButton("View Job");
-        viewDevices = new JButton("View Devices");
-        viewCust = new JButton("View Customers");
-        listPayments = new JButton("Show Payments");
+        addJob = new JButton("ADD JOB");
+        viewJob = new JButton("VIEW JOB");
+        viewDevices = new JButton("VIEW DEVICES");
+        viewCust = new JButton("VIEW CUSTOMERS");
+        listPayments = new JButton("SHOW PAYMENTS");
 
-        addJob.addActionListener(new ButtonListener());
-        viewJob.addActionListener(new ButtonListener());
-        viewDevices.addActionListener(new ButtonListener());
-        viewCust.addActionListener(new ButtonListener());
-        listPayments.addActionListener(new ButtonListener());
+
+        addJob.addActionListener(coreListener);
+        viewJob.addActionListener(coreListener);
+        viewDevices.addActionListener(coreListener);
+        viewCust.addActionListener(coreListener);
+        listPayments.addActionListener(coreListener);
         
         addJob.setPreferredSize(new Dimension(240,130));
         viewJob.setPreferredSize(new Dimension(240,130));
@@ -81,24 +82,34 @@ public class SystemUI extends JFrame{
     
     private class ButtonListener implements ActionListener{
         public void actionPerformed (ActionEvent event){
-            if((event.getSource()==addJob) &&(detailsActive==false) ){
+            if((event.getSource()==addJob)){
                 detailsPanel.removeAll();
                 JobDetail jobAddPanel = new JobDetail();
                 detailsPanel.add(jobAddPanel);
                 detailsPanel.updateUI();
                 mainPanel.updateUI();
             }
-            else if(event.getSource()==viewJob){
+            if(event.getSource()==viewJob){
+                detailsPanel.removeAll();
+                detailsPanel.add(new JButton("TestVJ"));
+                detailsPanel.updateUI();
 
             }
-            else if(event.getSource()==viewCust){
+            if(event.getSource()==viewCust){
+                detailsPanel.removeAll();
+                detailsPanel.add(new JButton("TestVC"));
+                detailsPanel.updateUI();
 
             }
-            else if(event.getSource()==viewDevices){
-
+            if(event.getSource()==viewDevices){
+                detailsPanel.removeAll();
+                detailsPanel.add(new JButton("TestVD"));
+                detailsPanel.updateUI();
             }
-            else if(event.getSource()==listPayments){
-                
+            if(event.getSource()==listPayments){
+                detailsPanel.removeAll();
+                detailsPanel.add(new JButton("TestLP"));
+                detailsPanel.updateUI();
             }
         }
     }

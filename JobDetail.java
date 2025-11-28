@@ -16,13 +16,13 @@ public class JobDetail extends JPanel{
         private JPanel subStatPanel;
         private JLabel cusNameL, cusNumberL, cusEmailL;
         private JLabel devTypeL, devBrandL, devSerialL;
-        private JLabel devIssueL, devDiagnosisL, devNotesL;
+        private JLabel devIssueL, devDiagnosisL, devNotesL, jobLocL;
 
         private JRadioButton statPend, statInProg, statAwait, statComplete;
 
         private JTextField cusNameTF, custNumTF, cusEmailTF;
         private JTextField devTypeTF, devBrandTF, devSerialTF;
-        private JTextField devIssTF, devDiagTF, devNotesTF;
+        private JTextField devIssTF, devDiagTF, devNotesTF, jobLocTF;
 
         private JButton submitData;
 
@@ -31,11 +31,13 @@ public class JobDetail extends JPanel{
         cusNumberL = new JLabel("CUSTOMER PHONE NUMBER:");
         cusEmailL = new JLabel("CUSTOMER EMAIL:");
         devTypeL = new JLabel("DEVICE TYPE:");
-        devBrandL = new JLabel("DEVICE BRAND:");
+        devBrandL = new JLabel("DEVICE BRAND/MODEL:");
         devSerialL = new JLabel("DEVICE SERIAL NUMBER:");
         devIssueL = new JLabel("DEVICE ISSUE:");
         devDiagnosisL = new JLabel("TECHNICIAN'S DIAGNOSIS:");
         devNotesL = new JLabel("TECHNICIAN'S NOTES:");
+
+        jobLocL = new JLabel("LOCATION STORED");
 
         statPend = new JRadioButton("PENDING");
         statAwait = new JRadioButton("AWAITING PARTS");
@@ -57,6 +59,7 @@ public class JobDetail extends JPanel{
         devIssTF = new JTextField();
         devDiagTF = new JTextField(); 
         devNotesTF = new JTextField();
+        jobLocTF = new JTextField();
 
         devPanel.setLayout(new GridLayout(12,1));
         devPanel.setPreferredSize(new Dimension(400,700));
@@ -89,6 +92,9 @@ public class JobDetail extends JPanel{
         devPanel.add(devNotesL);
         devPanel.add(devNotesTF);
 
+        devPanel.add(jobLocL);
+        devPanel.add(jobLocTF);
+
         devPanel.add(subStatPanel);
 
         submitData = new JButton("SUBMIT");
@@ -107,7 +113,7 @@ public class JobDetail extends JPanel{
                     Customer currCustomer = new Customer(cusNameTF.getText(), custNumTF.getText(), cusEmailTF.getText(), currDevice);
                     Driver.getData().getCustomers().add(currCustomer);
                     //Create Job and add to date Job list
-                    Job currJob = new Job(currCustomer,currDevice,0.0, 0.0, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText());
+                    Job currJob = new Job(currCustomer,currDevice,0.0, 0.0, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText(), jobLocTF.getText());
                     submitData.setBackground(Color.green);
                     PaymentProc pay = new PaymentProc(currJob);
                     pay.setVisible(true);

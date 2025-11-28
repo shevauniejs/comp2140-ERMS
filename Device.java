@@ -3,7 +3,7 @@ import java.util.Date;
 public class Device{
     static int countID = 000000000;
     private int devID;
-    private String  serial, brand, type;
+    private String  serial, brand, type, status;
     Date dateRcvd;   
     
     public Device(){}
@@ -22,7 +22,7 @@ public class Device{
     }
 
     public String toString(){
-        String str = "TYPE: "+type+"\tSERIAL #:"+serial+"\nBRAND: "+brand+"\tDATE: "+dateRcvd.toString();
+        String str = "\n\tTYPE: "+type+"\tSERIAL #:"+serial+"\n\tBRAND: "+brand+"\tDATE: "+dateRcvd.toString();
         return str;
     }
 }
