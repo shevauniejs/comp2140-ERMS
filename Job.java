@@ -1,3 +1,5 @@
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Job{
     static int idCounter = 30000000;
     private int jobId;
@@ -41,7 +43,9 @@ public class Job{
     }
 
     private int calcId(){
-        return idCounter++;
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int rand = random.nextInt(0+1, 10000);
+        return idCounter+ rand;
     }
     public int getJobId() {
         return jobId;
@@ -84,7 +88,7 @@ public class Job{
         return this.storagePlace;
     }
     public String toString(){
-        String str = jobId+")+("+jobCustomer+")+("+techIssue+")+("+ storagePlace+")+("+jobCost+")+("+amntPaid+")+("+(jobCost-amntPaid);
+        String str = jobId+"="+jobCustomer+"="+techIssue+"="+ storagePlace+"="+jobCost+"="+amntPaid+"="+(jobCost-amntPaid);
         return str;
     }
 }

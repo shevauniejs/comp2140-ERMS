@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -55,7 +56,9 @@ public class PaymentProc extends JFrame{
     }
 
     private int calcId(){
-        return idCounter++;
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int rand = random.nextInt(0+1, 10000);
+        return idCounter+ rand;
     }
     public int getTransId() {
         return transactionId;
@@ -68,9 +71,9 @@ public class PaymentProc extends JFrame{
                 currJob.setPaid(Double.parseDouble(tfPaid.getText())); 
                 Driver.getData().getJobs().add(currJob);
                 double balance = currJob.getCost()-currJob.getPaid();
-                System.out.println(balance);
+                //System.out.println(balance);
                 lBalance.setText("BALANCE: $"+Double.toString(balance));
-                System.out.println(currJob);
+                //System.out.println(currJob);
                 Receipt receipt = new Receipt(transactionId,"\t\t===========================BWOYZE+++ELECTRONICS=======================\n"+
                      "\n\t\t===========================96c MOLYNES ROAD (876-366-9211)=========================\n"+
                      "\n\n\tCUSTOMER NAME: "+currJob.getCustomer().getName()+"\tNUMBER: "+currJob.getCustomer().getNumber()+"\tEMAIL: "+currJob.getCustomer().getEmail()+

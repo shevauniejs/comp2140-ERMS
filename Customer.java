@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Customer{
     static int idCounter= 10000000;
@@ -44,13 +45,15 @@ public class Customer{
     }
 
     private int calcId(){
-        return idCounter++;
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int rand = random.nextInt(0+1, 10000);
+        return idCounter+ rand;
     }
     public int getCusId() {
         return customerId;
     }    
     public String toString(){
-        String str = name+")+("+number+")+("+email+")+("+ cusDevice;
+        String str = customerId+"="+name+"="+number+"="+email+"="+ cusDevice;
         return str;
     }
 

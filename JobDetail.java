@@ -115,7 +115,7 @@ public class JobDetail extends JPanel{
     private class detailButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent event){
                 if(event.getSource()==submitData){
-                    //Create Device and add to Data device list
+                    //Create Device and add to device DB
                     String devStat ="";
 
                     java.util.Enumeration<AbstractButton> buttonEnum = radios.getElements();
@@ -127,11 +127,11 @@ public class JobDetail extends JPanel{
                         }
                     }
                     Device currDevice = new Device(devSerialTF.getText(), devBrandTF.getText(), devTypeTF.getText(), devStat);
-                    Driver.getData().getDevices().add(currDevice);
-                    //Create Cust and add to Data cust list
+
+                    //Create Cust add to Cust DB
                     Customer currCustomer = new Customer(cusNameTF.getText(), custNumTF.getText(), cusEmailTF.getText(), currDevice);
-                    Driver.getData().getCustomers().add(currCustomer);
-                    //Create Job and add to date Job list
+                    
+                    //Create Job and add to Job DB
                     Job currJob = new Job(currCustomer,currDevice,0.0, 0.0, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText(), jobLocTF.getText());
                     submitData.setBackground(Color.green);
                     PaymentProc pay = new PaymentProc(currJob);
