@@ -73,7 +73,7 @@ public class PaymentProc extends JFrame{
                 System.out.println(currJob);
                 Receipt receipt = new Receipt("\t\t===========================BWOYZE+++ELECTRONICS=======================\n"+
                      "\n\t\t===========================96c MOLYNES ROAD (876-366-9211)=========================\n"+
-                     "\n\n\tCUSTOMER NAME: "+currJob.getCustomer().getName()+"\tNUMBER: "+currJob.getCustomer().getNumber()+"\tEMAIL"+currJob.getCustomer().getEmail()+
+                     "\n\n\tCUSTOMER NAME: "+currJob.getCustomer().getName()+"\tNUMBER: "+currJob.getCustomer().getNumber()+"\tEMAIL: "+currJob.getCustomer().getEmail()+
                      "\n\n\tDEVICE:"+
                      "\n\tTYPE: "+currJob.getDevice().getType()+"\tSERIAL #:"+currJob.getDevice().getSerialNum()+
                      "\n\tBRAND/MODEL: "+currJob.getDevice().getBrand_ModelInfo()+"\tDATE: "+ currJob.getDevice().getDate()+
@@ -87,15 +87,16 @@ public class PaymentProc extends JFrame{
                     
                     FileWriter jobDataWriter;
                     try {
-                        jobDataWriter  = new FileWriter("Jobs.dat");
-                        jobDataWriter.write(currJob.toString());
+                        jobDataWriter  = new FileWriter("Jobs.dat", true);
+                        jobDataWriter.write(currJob.toString()+"\n");
                         jobDataWriter.close();
                     } catch (IOException e) {
                         //Auto-generated catch block
                         System.out.println("Issue writing to file..");
                         e.printStackTrace();
                     }                
-                receipt.setVisible(true);      
+                receipt.setVisible(true);
+                setVisible(false);     
             }
         }
     }

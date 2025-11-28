@@ -18,8 +18,8 @@ public class Device{
         this.type = _type;
         dateRcvd = new Date();
         try {
-            devDataWriter  = new FileWriter("Devices.dat");
-            devDataWriter.write(this.toString());
+            devDataWriter  = new FileWriter("Devices.dat", true);
+            devDataWriter.write(this.toString()+"\n");
             devDataWriter.close();
         } catch (IOException e) {
             //Auto-generated catch block
@@ -52,7 +52,7 @@ public class Device{
         return dateRcvd.toString();
     }
     public String toString(){
-        String str = devId+" "+type+" "+serial+" "+brand+" "+dateRcvd.toString();
+        String str = devId+")+("+type+")+("+serial+")+("+brand+")+("+dateRcvd.toString();
         return str;
     }
 }

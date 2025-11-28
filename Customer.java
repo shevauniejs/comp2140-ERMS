@@ -21,8 +21,8 @@ public class Customer{
         this.cusDevice =_device;
         this.customerId = calcId();
         try {
-            cusDataWriter  = new FileWriter("Customers.dat");
-            cusDataWriter.write(this.toString());
+            cusDataWriter  = new FileWriter("Customers.dat", true);
+            cusDataWriter.write(this.toString()+"\n");
             cusDataWriter.close();
         } catch (IOException e) {
             //Auto-generated catch block
@@ -50,7 +50,7 @@ public class Customer{
         return customerId;
     }    
     public String toString(){
-        String str = name+" "+number+" "+email+" "+ cusDevice;
+        String str = name+")+("+number+")+("+email+")+("+ cusDevice;
         return str;
     }
 
