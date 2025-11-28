@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public class Device{
-    protected int countID = 000000000;
+    static int countID = 000000000;
     private int devID;
     private String  serial, brand, type;
     Date dateRcvd;   

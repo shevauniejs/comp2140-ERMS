@@ -82,7 +82,7 @@ public class SystemUI extends JFrame{
     private class ButtonListener implements ActionListener{
         public void actionPerformed (ActionEvent event){
             if((event.getSource()==addJob) &&(detailsActive==false) ){
-                //detailsActive = true; //ensures only 1 Detail form is added to mainPanel
+                detailsPanel.removeAll();
                 JobDetail jobAddPanel = new JobDetail();
                 detailsPanel.add(jobAddPanel);
                 detailsPanel.updateUI();

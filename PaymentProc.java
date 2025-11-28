@@ -53,7 +53,9 @@ public class PaymentProc extends JFrame{
                 double balance = currJob.getCost()-currJob.getPaid();
                 System.out.println(balance);
                 lBalance.setText("BALANCE: $"+Double.toString(balance));
-                System.out.println(currJob);             
+                System.out.println(currJob);
+                Receipt receipt = new Receipt(currJob.toString());
+                receipt.setVisible(true);      
             }
         }
     }
