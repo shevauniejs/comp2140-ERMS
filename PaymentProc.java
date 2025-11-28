@@ -71,7 +71,7 @@ public class PaymentProc extends JFrame{
                 System.out.println(balance);
                 lBalance.setText("BALANCE: $"+Double.toString(balance));
                 System.out.println(currJob);
-                Receipt receipt = new Receipt("\t\t===========================BWOYZE+++ELECTRONICS=======================\n"+
+                Receipt receipt = new Receipt(transactionId,"\t\t===========================BWOYZE+++ELECTRONICS=======================\n"+
                      "\n\t\t===========================96c MOLYNES ROAD (876-366-9211)=========================\n"+
                      "\n\n\tCUSTOMER NAME: "+currJob.getCustomer().getName()+"\tNUMBER: "+currJob.getCustomer().getNumber()+"\tEMAIL: "+currJob.getCustomer().getEmail()+
                      "\n\n\tDEVICE:"+

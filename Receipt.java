@@ -12,7 +12,7 @@ public class Receipt extends JFrame{
     private String details;
     //private FileWriter receipt;
     private JTextArea recLabel;
-    public Receipt(String _details){
+    public Receipt(int _transID, String _details){
         this.setTitle("Receipt Preview");
         this.details = _details;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -22,7 +22,7 @@ public class Receipt extends JFrame{
 
         String userhome = System.getProperty("user.home");
         Path documentsPath = Paths.get(userhome, "Documents");
-        Path filePath = documentsPath.resolve("receipt.txt");
+        Path filePath = documentsPath.resolve("receipt"+_transID+".txt");
 
         try {
             // 4. Write the content to the file.

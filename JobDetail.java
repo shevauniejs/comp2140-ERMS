@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ public class JobDetail extends JPanel{
         private JLabel devTypeL, devBrandL, devSerialL;
         private JLabel devIssueL, devDiagnosisL, devNotesL, jobLocL;
 
+        private ButtonGroup radios;
         private JRadioButton statPend, statInProg, statAwait, statComplete;
 
         private JTextField cusNameTF, custNumTF, cusEmailTF;
@@ -43,6 +46,12 @@ public class JobDetail extends JPanel{
         statAwait = new JRadioButton("AWAITING PARTS");
         statInProg = new JRadioButton("IN PROGRESS");
         statComplete = new JRadioButton("COMPLETE");
+        radios = new ButtonGroup();
+        radios.add(statPend);
+        radios.add(statInProg);
+        radios.add(statAwait);
+        radios.add(statComplete);
+        
         subStatPanel = new JPanel(new GridLayout(4,1));
 
         subStatPanel.add(statPend);
@@ -107,7 +116,17 @@ public class JobDetail extends JPanel{
         public void actionPerformed(ActionEvent event){
                 if(event.getSource()==submitData){
                     //Create Device and add to Data device list
-                    Device currDevice = new Device(devSerialTF.getText(), devBrandTF.getText(), devTypeTF.getText());
+                    String devStat ="";
+
+                    java.util.Enumeration<AbstractButton> buttonEnum = radios.getElements();
+                    while (buttonEnum.hasMoreElements()) {
+                        AbstractButton button = buttonEnum.nextElement();                        
+                        if (button.isSelected()) {
+                            devStat = button.getText(); // Get the text directly from the JRadioButton/AbstractButton
+                            break; 
+                        }
+                    }
+                    Device currDevice = new Device(devSerialTF.getText(), devBrandTF.getText(), devTypeTF.getText(), devStat);
                     Driver.getData().getDevices().add(currDevice);
                     //Create Cust and add to Data cust list
                     Customer currCustomer = new Customer(cusNameTF.getText(), custNumTF.getText(), cusEmailTF.getText(), currDevice);
