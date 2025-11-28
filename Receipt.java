@@ -15,7 +15,7 @@ public class Receipt extends JFrame{
     public Receipt(String _details){
         this.setTitle("Receipt Preview");
         this.details = _details;
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         recLabel = new JTextArea(details);
         setSize(new Dimension(800,500));  
         getContentPane().add(recLabel);  

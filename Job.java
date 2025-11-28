@@ -1,10 +1,11 @@
 public class Job{
-    static int idCounter = 000000;
+    static int idCounter = 30000000;
     private int jobId;
     private Device jobDevice;
     private Customer jobCustomer;
     private double jobCost, amntPaid;
     private String techIssue, techDiagnosis, techNotes, storagePlace;
+
 
 
     public Job(){}
@@ -19,6 +20,7 @@ public class Job{
         this.techNotes = _techNotes;
         this.storagePlace = _storagePlace;
         this.jobId =calcId();
+
     }
 
     public double getPaid(){

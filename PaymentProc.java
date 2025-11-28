@@ -2,6 +2,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class PaymentProc extends JFrame{
+    static int idCounter = 40000000;
+    private int transactionId;
     private JLabel lCost, lPaid, lBalance;
     private JTextField tfCost, tfPaid;
     private JButton printReceipt;
@@ -19,7 +23,10 @@ public class PaymentProc extends JFrame{
 
     public PaymentProc(Job aJob){
         this.setPreferredSize(new Dimension(400,300));
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        this.setTitle("Payment");
+
+        this.transactionId = calcId();
         currJob = aJob;
         paymentPane = new JPanel(new GridLayout(4, 2));
         paymentPane.setSize(new Dimension(380,280));
@@ -47,6 +54,13 @@ public class PaymentProc extends JFrame{
         window.pack();
     }
 
+    private int calcId(){
+        return idCounter++;
+    }
+    public int getTransId() {
+        return transactionId;
+    } 
+
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==printReceipt){
@@ -66,9 +80,21 @@ public class PaymentProc extends JFrame{
                      "\n\n\tDEVICE ISSUE: "+currJob.getIssue()+
                      "\n\n\tDEVICE LOCATION IN STORE: "+ currJob.getStoragePlace()+
                      "\n\n\tCost: $"+currJob.getCost()+"\n\tAMOUNT PAID: $"+currJob.getPaid()+"\n\tBALANCE: $"+(currJob.getCost()-currJob.getPaid())+
+                     "\n\n\tTRANSACTION: "+transactionId+
                      "\n\n\tDevices are held for a maximum of 30 days after technician notifies/calls you.\n"+
                      "\tFailure to retrieve after 30 days will incur a storage fee or device being sold."+
                      "\n\n\t\t\tThanks for doing business!");
+                    
+                    FileWriter jobDataWriter;
+                    try {
+                        jobDataWriter  = new FileWriter("Jobs.dat");
+                        jobDataWriter.write(currJob.toString());
+                        jobDataWriter.close();
+                    } catch (IOException e) {
+                        //Auto-generated catch block
+                        System.out.println("Issue writing to file..");
+                        e.printStackTrace();
+                    }                
                 receipt.setVisible(true);      
             }
         }

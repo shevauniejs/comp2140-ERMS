@@ -101,8 +101,10 @@ public class SystemUI extends JFrame{
             }
             if(event.getSource()==viewDevices){
                 detailsPanel.removeAll();
-                detailsPanel.add(new JButton("TestVD"));
+                DeviceTracker devTracker = new DeviceTracker();
+                detailsPanel.add(devTracker);
                 detailsPanel.updateUI();
+                mainPanel.updateUI();
             }
             if(event.getSource()==listPayments){
                 detailsPanel.removeAll();
