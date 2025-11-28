@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 
 import javax.swing.JPanel;
@@ -76,7 +77,7 @@ public class DeviceTracker extends JPanel{
     private Date toDate(String dateString){
         String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
         Date dateObject = null;
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
         try {
              dateObject = formatter.parse(dateString);
         } catch (ParseException e) {
