@@ -57,7 +57,18 @@ public class PaymentProc extends JFrame{
                 System.out.println(balance);
                 lBalance.setText("BALANCE: $"+Double.toString(balance));
                 System.out.println(currJob);
-                Receipt receipt = new Receipt(currJob.toString());
+                Receipt receipt = new Receipt("\t\t===========================BWOYZE+++ELECTRONICS=======================\n"+
+                     "\n\t\t===========================96c MOLYNES ROAD (876-366-9211)=========================\n"+
+                     "\n\n\tCUSTOMER NAME: "+currJob.getCustomer().getName()+"\tNUMBER: "+currJob.getCustomer().getNumber()+"\tEMAIL"+currJob.getCustomer().getEmail()+
+                     "\n\n\tDEVICE:"+
+                     "\n\tTYPE: "+currJob.getDevice().getType()+"\tSERIAL #:"+currJob.getDevice().getSerialNum()+
+                     "\n\tBRAND/MODEL: "+currJob.getDevice().getBrand_ModelInfo()+"\tDATE: "+ currJob.getDevice().getDate()+
+                     "\n\n\tDEVICE ISSUE: "+currJob.getIssue()+
+                     "\n\n\tDEVICE LOCATION IN STORE: "+ currJob.getStoragePlace()+
+                     "\n\n\tCost: $"+currJob.getCost()+"\n\tAMOUNT PAID: $"+currJob.getPaid()+"\n\tBALANCE: $"+(currJob.getCost()-currJob.getPaid())+
+                     "\n\n\tDevices are held for a maximum of 30 days after technician notifies/calls you.\n"+
+                     "\tFailure to retrieve after 30 days will incur a storage fee or device being sold."+
+                     "\n\n\t\t\tThanks for doing business!");
                 receipt.setVisible(true);      
             }
         }

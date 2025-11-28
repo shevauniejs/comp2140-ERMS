@@ -21,8 +21,23 @@ public class Device{
         return devID;
     }
 
+    public String getType(){
+        return this.type;
+    }
+
+    public String getBrand_ModelInfo(){
+        return this.brand;
+    }
+
+    public String getSerialNum(){
+        return this.serial;
+    }
+
+    public String getDate(){
+        return dateRcvd.toString();
+    }
     public String toString(){
-        String str = "\n\tTYPE: "+type+"\tSERIAL #:"+serial+"\n\tBRAND: "+brand+"\tDATE: "+dateRcvd.toString();
+        String str = type+" "+serial+" "+brand+" "+dateRcvd.toString();
         return str;
     }
 }

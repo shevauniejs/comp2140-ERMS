@@ -52,6 +52,13 @@ public class Job{
         this.techNotes = newNote;
     }
 
+    public String getIssue(){
+        return this.techIssue;
+    }
+
+    public void setIssue(String newIssue){
+        this.techIssue = newIssue;
+    }
     public String getDiagnosis(){
         return this.techDiagnosis;
     }
@@ -63,6 +70,10 @@ public class Job{
         return this.jobDevice;
     }
 
+    public Customer getCustomer(){
+        return this.jobCustomer;
+    }
+
     public void setStoragePlace(String place) {
         this.storagePlace = place;
     }
@@ -71,15 +82,7 @@ public class Job{
         return this.storagePlace;
     }
     public String toString(){
-        String str = "\t\t===========================BWOYZE+++ELECTRONICS=======================\n"+
-                     "\n\t\t===========================96c MOLYNES ROAD (876-366-9211)=========================\n"+
-                     "\n\n\t"+jobCustomer+
-                     "\n\n\tDEVICE ISSUE: "+techIssue+
-                     "\n\n\tDEVICE LOCATION IN STORE: "+ storagePlace+
-                     "\n\n\tCost: $"+jobCost+"\n\tAMOUNT PAID: $"+amntPaid+"\n\tBALANCE: $"+(jobCost-amntPaid)+
-                     "\n\n\tDevices are held for a maximum of 30 days after technician notifies/calls you.\n"+
-                     "\tFailure to retrieve after 30 days will incur a storage fee or device being sold."+
-                     "\n\n\t\t\tThanks for doing business!";
+        String str = jobCustomer+" "+techIssue+" "+ storagePlace+" "+jobCost+" "+amntPaid+" "+(jobCost-amntPaid);
         return str;
     }
 }

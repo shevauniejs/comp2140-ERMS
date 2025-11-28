@@ -24,8 +24,12 @@ public class Customer{
         return number;
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+
     public String toString(){
-        String str = "CUSTOMER NAME: "+name+"\t\tNUMBER: "+number+"\tEMAIL: "+email+"\nDEVICE: "+ cusDevice;
+        String str = name+" "+number+" "+email+" "+ cusDevice;
         return str;
     }
 

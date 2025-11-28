@@ -41,8 +41,8 @@ public class SystemUI extends JFrame{
         detailsPanel.setPreferredSize(new Dimension(700,720));
 
         addJob = new JButton("ADD JOB");
-        viewJob = new JButton("VIEW JOB");
-        viewDevices = new JButton("VIEW DEVICES");
+        viewJob = new JButton("VIEW/UPDATE JOB");
+        viewDevices = new JButton("TRACK DEVICES");
         viewCust = new JButton("VIEW CUSTOMERS");
         listPayments = new JButton("SHOW PAYMENTS");
 
