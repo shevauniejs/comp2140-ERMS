@@ -25,7 +25,7 @@ public class DeviceTracker extends JPanel{
     private JButton searchButton, updBtn;
 
     private ButtonGroup radios;
-    private JRadioButton pending, inprogress, complete, awaitingparts;
+    private JRadioButton pending, inprogress, complete, awaitingparts, pickup;
 
     public DeviceTracker(){
         setLayout(new GridLayout(3,1));
@@ -57,21 +57,24 @@ public class DeviceTracker extends JPanel{
         inprogress = new JRadioButton("IN PROGRESS");
         awaitingparts = new JRadioButton("AWAITING PARTS");
         complete = new JRadioButton("REPAIR COMPLETE");
+        pickup = new JRadioButton("PICKUP READY");
 
         radios.add(pending);
         radios.add(awaitingparts);
         radios.add(inprogress);
         radios.add(complete);
+        radios.add(pickup);
 
         radPan = new JPanel();
         radPan.add(awaitingparts);
         radPan.add(inprogress);
         radPan.add(complete);
+        radPan.add(pickup);
 
         subDetailsPanel.add(statusL, null, 0);
         subDetailsPanel.add(radPan, null, 1);
         subDetailsPanel.add(updBtn, null, 2);
-        subDetailsPanel.setPreferredSize(new Dimension(10,100));
+        subDetailsPanel.setPreferredSize(new Dimension(10,150));
 
         add(scrollPane);
         add(subDetailsPanel);

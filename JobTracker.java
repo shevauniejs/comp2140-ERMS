@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -15,10 +16,13 @@ public class JobTracker extends JPanel{
     private JTable devTable;
     private DefaultTableModel devTableModel;
     private JScrollPane scrollPane;
-    private JLabel titleLabel;
+    private JLabel searchL, notesL;
+    private JPanel searchPanel, subDetailsPanel;
+    private JTextField searchTF, notesTF;
+    private JButton searchButton, updBtn;
 
     public JobTracker(){
-        titleLabel = new JLabel("JOBS");
+        setLayout(new GridLayout(3,1));
         jobs =Loader.loadJobs("Jobs.dat");
         String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Issue", "Notes","Diagnosis","Status"};
         devTableModel = new DefaultTableModel(columnNames,0);
@@ -28,7 +32,7 @@ public class JobTracker extends JPanel{
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
 
-        
+
         searchPanel = new JPanel(new GridLayout(3,1));
         searchL = new JLabel("SEARCH BY NAME, NUMBER OR ID");
         searchTF = new JTextField();
@@ -37,31 +41,19 @@ public class JobTracker extends JPanel{
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
 
-        cusDetailsPanel = new JPanel(new GridLayout(4,2));
-        nameL = new JLabel("NAME");
-        numberL = new JLabel("NUMBER");
-        emailL = new JLabel("EMAIL");
-        nameTF = new JTextField();
-        numberTF = new JTextField();
-        emailTF = new JTextField();
+        subDetailsPanel = new JPanel(new GridLayout(3,1));
+        notesL = new JLabel("NOTES");
+        notesTF = new JTextField();
         updBtn = new JButton("UPDATE");
 
         
-        cusDetailsPanel.add(nameL, null, 0);
-        cusDetailsPanel.add(nameTF, null, 1);
-        cusDetailsPanel.add(numberL, null, 2);
-        cusDetailsPanel.add(numberTF, null, 3);
-        cusDetailsPanel.add(emailL, null, 4);
-        cusDetailsPanel.add(emailTF, null, 5);
-        cusDetailsPanel.add(updBtn, null, 6);
-        cusDetailsPanel.setPreferredSize(new Dimension(10,100));
+        subDetailsPanel.add(notesL, null, 0);
+        subDetailsPanel.add(notesTF, null, 1);
+        subDetailsPanel.add(updBtn, null, 2);
+        subDetailsPanel.setPreferredSize(new Dimension(10,100));
 
-
-
-
-
-        add(titleLabel);
         add(scrollPane);
+        add(subDetailsPanel);
         devTable.setSelectionBackground(Color.yellow);
     }
 
