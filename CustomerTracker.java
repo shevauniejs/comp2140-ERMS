@@ -1,12 +1,15 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class CustomerTracker extends JPanel{
@@ -14,10 +17,16 @@ public class CustomerTracker extends JPanel{
     private JTable cusTable;
     private DefaultTableModel cusTableModel;
     private JScrollPane scrollPane;
-    private JLabel titleLabel;
+    
+    private JLabel searchL, nameL, numberL, emailL;
+    private JTextField searchTF, nameTF, numberTF, emailTF;
+    private JPanel searchPanel, cusDetailsPanel;
+    private JButton searchButton, updBtn;
+    
 
     public CustomerTracker(){
-        titleLabel = new JLabel("CUSTOMERS");
+        setLayout(new GridLayout(3,1));
+        
         customers = Loader.loadCustomers("Customers.dat");
         String [] columnNames = {"Customer ID","Name", "Phone Number", "Email", "Device","Date Received"};
         cusTableModel = new DefaultTableModel(columnNames,0);
@@ -25,9 +34,39 @@ public class CustomerTracker extends JPanel{
         showTable(customers);
         cusTable.setPreferredScrollableViewportSize(new Dimension(1000, customers.size()*15 +20));
         cusTable.setFillsViewportHeight(true);
-        scrollPane = new JScrollPane(cusTable); //Why are you here? I make your table visible :-)
-        add(titleLabel);
+        scrollPane = new JScrollPane(cusTable); //Why are you here? I make your table visible :-)     
+    
+        searchPanel = new JPanel(new GridLayout(3,1));
+        searchL = new JLabel("SEARCH BY NAME, NUMBER OR ID");
+        searchTF = new JTextField();
+        searchButton = new JButton("SEARCH");
+        searchPanel.add(searchL);
+        searchPanel.add(searchTF);
+        searchPanel.add(searchButton);
+
+        cusDetailsPanel = new JPanel(new GridLayout(4,2));
+        nameL = new JLabel("NAME");
+        numberL = new JLabel("NUMBER");
+        emailL = new JLabel("EMAIL");
+        nameTF = new JTextField();
+        numberTF = new JTextField();
+        emailTF = new JTextField();
+        updBtn = new JButton("UPDATE");
+
+        
+        cusDetailsPanel.add(nameL, null, 0);
+        cusDetailsPanel.add(nameTF, null, 1);
+        cusDetailsPanel.add(numberL, null, 2);
+        cusDetailsPanel.add(numberTF, null, 3);
+        cusDetailsPanel.add(emailL, null, 4);
+        cusDetailsPanel.add(emailTF, null, 5);
+        cusDetailsPanel.add(updBtn, null, 6);
+        cusDetailsPanel.setPreferredSize(new Dimension(10,100));
+
         add(scrollPane);
+        add(cusDetailsPanel);
+        add(searchPanel);
+
         cusTable.setSelectionBackground(Color.yellow);
     }
 

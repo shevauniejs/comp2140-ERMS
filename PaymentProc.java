@@ -68,8 +68,9 @@ public class PaymentProc extends JFrame{
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==printReceipt){
                 currJob.setCost(Double.parseDouble(tfCost.getText()));
-                currJob.setPaid(Double.parseDouble(tfPaid.getText())); 
-                Driver.getData().getJobs().add(currJob);
+                currJob.setPaid(Double.parseDouble(tfPaid.getText()));
+                 
+                currJob.getCustomer().addJob(currJob); //add created job to customer's jobList
                 double balance = currJob.getCost()-currJob.getPaid();
                 //System.out.println(balance);
                 lBalance.setText("BALANCE: $"+Double.toString(balance));

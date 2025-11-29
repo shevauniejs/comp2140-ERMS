@@ -2,10 +2,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class JobTracker extends JPanel{
@@ -25,6 +27,39 @@ public class JobTracker extends JPanel{
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, jobs.size()*15 +20));
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
+
+        
+        searchPanel = new JPanel(new GridLayout(3,1));
+        searchL = new JLabel("SEARCH BY NAME, NUMBER OR ID");
+        searchTF = new JTextField();
+        searchButton = new JButton("SEARCH");
+        searchPanel.add(searchL);
+        searchPanel.add(searchTF);
+        searchPanel.add(searchButton);
+
+        cusDetailsPanel = new JPanel(new GridLayout(4,2));
+        nameL = new JLabel("NAME");
+        numberL = new JLabel("NUMBER");
+        emailL = new JLabel("EMAIL");
+        nameTF = new JTextField();
+        numberTF = new JTextField();
+        emailTF = new JTextField();
+        updBtn = new JButton("UPDATE");
+
+        
+        cusDetailsPanel.add(nameL, null, 0);
+        cusDetailsPanel.add(nameTF, null, 1);
+        cusDetailsPanel.add(numberL, null, 2);
+        cusDetailsPanel.add(numberTF, null, 3);
+        cusDetailsPanel.add(emailL, null, 4);
+        cusDetailsPanel.add(emailTF, null, 5);
+        cusDetailsPanel.add(updBtn, null, 6);
+        cusDetailsPanel.setPreferredSize(new Dimension(10,100));
+
+
+
+
+
         add(titleLabel);
         add(scrollPane);
         devTable.setSelectionBackground(Color.yellow);

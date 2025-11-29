@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Customer{
@@ -9,6 +10,7 @@ public class Customer{
     private String number;
     private String email;
     private Device cusDevice;
+    private ArrayList<Job> cusJobs;
     FileWriter cusDataWriter;
 
     public Customer(int _cusId, String _name, String _number, String _email, Device _device){
@@ -36,6 +38,14 @@ public class Customer{
         }
     }
 
+    public void addJob(Job cJob){
+        cusJobs.add(cJob);
+    }
+
+    public ArrayList<Job> getCusJobs(){
+        return this.cusJobs;
+    }
+    
     public Device getDevice(){
         return this.cusDevice;
     }

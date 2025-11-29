@@ -1,22 +1,35 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class DeviceTracker extends JPanel{
     private ArrayList <Device> devices; 
     private JTable devTable;
     private DefaultTableModel devTableModel;
+    
     private JScrollPane scrollPane;
-    private JLabel titleLabel;
+    private JPanel searchPanel, subDetailsPanel, radPan;
+    private JLabel searchL, statusL;
+    private JTextField searchTF;
+    private JButton searchButton, updBtn;
+
+    private ButtonGroup radios;
+    private JRadioButton pending, inprogress, complete, awaitingparts;
 
     public DeviceTracker(){
-        titleLabel = new JLabel("DEVICE TRACKER");
+        setLayout(new GridLayout(3,1));
+
         devices = Loader.loadDevices("Devices.dat");
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
         devTableModel = new DefaultTableModel(columnNames,0);
@@ -25,8 +38,44 @@ public class DeviceTracker extends JPanel{
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, devices.size()*15 +20));
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
-        add(titleLabel);
+
+        searchPanel = new JPanel(new GridLayout(3,1));
+        searchL = new JLabel("SEARCH BY STATUS or LOCATION");
+        searchTF = new JTextField();
+        searchButton = new JButton("SEARCH");
+        searchPanel.add(searchL);
+        searchPanel.add(searchTF);
+        searchPanel.add(searchButton);
+
+        subDetailsPanel = new JPanel(new GridLayout(2,2));
+        statusL = new JLabel("DEVICE STATUS");
+        updBtn = new JButton("UPDATE");
+       
+
+        radios = new ButtonGroup();
+        pending = new JRadioButton("PENDING");
+        inprogress = new JRadioButton("IN PROGRESS");
+        awaitingparts = new JRadioButton("AWAITING PARTS");
+        complete = new JRadioButton("REPAIR COMPLETE");
+
+        radios.add(pending);
+        radios.add(awaitingparts);
+        radios.add(inprogress);
+        radios.add(complete);
+
+        radPan = new JPanel();
+        radPan.add(awaitingparts);
+        radPan.add(inprogress);
+        radPan.add(complete);
+
+        subDetailsPanel.add(statusL, null, 0);
+        subDetailsPanel.add(radPan, null, 1);
+        subDetailsPanel.add(updBtn, null, 2);
+        subDetailsPanel.setPreferredSize(new Dimension(10,100));
+
         add(scrollPane);
+        add(subDetailsPanel);
+        add(searchPanel);
         devTable.setSelectionBackground(Color.yellow);
     }
 
