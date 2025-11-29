@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,8 +13,10 @@ public class JobTracker extends JPanel{
     private JTable devTable;
     private DefaultTableModel devTableModel;
     private JScrollPane scrollPane;
+    private JLabel titleLabel;
 
     public JobTracker(){
+        titleLabel = new JLabel("JOBS");
         jobs =Loader.loadJobs("Jobs.dat");
         String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Issue", "Notes","Diagnosis","Status"};
         devTableModel = new DefaultTableModel(columnNames,0);
@@ -22,7 +24,8 @@ public class JobTracker extends JPanel{
         showTable(jobs);
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, jobs.size()*15 +20));
         devTable.setFillsViewportHeight(true);
-        scrollPane = new JScrollPane(devTable); //Why are you here?
+        scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
+        add(titleLabel);
         add(scrollPane);
         devTable.setSelectionBackground(Color.yellow);
     }

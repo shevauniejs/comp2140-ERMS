@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,8 +13,10 @@ public class DeviceTracker extends JPanel{
     private JTable devTable;
     private DefaultTableModel devTableModel;
     private JScrollPane scrollPane;
+    private JLabel titleLabel;
 
     public DeviceTracker(){
+        titleLabel = new JLabel("DEVICE TRACKER");
         devices = Loader.loadDevices("Devices.dat");
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
         devTableModel = new DefaultTableModel(columnNames,0);
@@ -21,7 +24,8 @@ public class DeviceTracker extends JPanel{
         showTable(devices);
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, devices.size()*15 +20));
         devTable.setFillsViewportHeight(true);
-        scrollPane = new JScrollPane(devTable); //Why are you here?
+        scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
+        add(titleLabel);
         add(scrollPane);
         devTable.setSelectionBackground(Color.yellow);
     }
