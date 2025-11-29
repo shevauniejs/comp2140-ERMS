@@ -10,11 +10,21 @@ public class Job{
 
 
 
-    public Job(){}
-
-    public Job(Customer _customer, Device _device, double _jobCost, double _amtPaid, String _techIssue, String _diagnosis, String _techNotes, String _storagePlace){
+    public Job(int _jobId, Customer _customer, String _techIssue, String _diagnosis, String _techNotes, String _storagePlace,  double _jobCost, double _amtPaid){
         this.jobCustomer = _customer;
-        this.jobDevice = _device;
+        this.jobDevice = jobCustomer.getDevice();
+        this.jobCost =_jobCost;
+        this.amntPaid = _amtPaid;
+        this.techIssue = _techIssue;
+        this.techDiagnosis = _diagnosis;
+        this.techNotes = _techNotes;
+        this.storagePlace = _storagePlace;
+        this.jobId =_jobId;
+    }
+
+    public Job(Customer _customer, String _techIssue, String _diagnosis, String _techNotes, String _storagePlace, double _jobCost, double _amtPaid){
+        this.jobCustomer = _customer;
+        this.jobDevice = jobCustomer.getDevice();
         this.jobCost =_jobCost;
         this.amntPaid = _amtPaid;
         this.techIssue = _techIssue;

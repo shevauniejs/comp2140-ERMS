@@ -21,12 +21,12 @@ public class DeviceTracker extends JPanel{
     private JScrollPane scrollPane;
 
     public DeviceTracker(){
-        devices = loadDevices("Devices.dat");
+        devices = Loader.loadDevices("Devices.dat");
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
         devTableModel = new DefaultTableModel(columnNames,0);
         devTable = new JTable(devTableModel);
         showTable(devices);
-        devTable.setPreferredScrollableViewportSize(new Dimension(500, devices.size()*15 +50));
+        devTable.setPreferredScrollableViewportSize(new Dimension(1000, devices.size()*15 +20));
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here?
         add(scrollPane);
@@ -46,7 +46,7 @@ public class DeviceTracker extends JPanel{
         String[] item={Integer.toString(d.getDevID()),""+d.getType(),""+ d.getSerialNum(),""+d.getBrand_ModelInfo(),""+ d.getStatus(),""+d.getDate()}; //Add U data to library, each as a string
         devTableModel.addRow(item); //from the model above, make it a new row        
     }
-
+/*
     private ArrayList<Device> loadDevices(String devDat){
 
         Scanner dev_scan = null; //Scanner to read from source
@@ -57,14 +57,14 @@ public class DeviceTracker extends JPanel{
             while(dev_scan.hasNext()) //if the file has data
             {
                 String [] nextLine = dev_scan.nextLine().split("="); //split next line by ' ', add each string to array
-                int devId = Integer.parseInt(nextLine[0]); System.out.println(devId);
+                int devId = Integer.parseInt(nextLine[0]); //System.out.println(devId);
                 String type = nextLine[1];  //System.out.println(type);
                 String serial = nextLine[2]; //System.out.println(serial);
                 String brand = nextLine[3]; //System.out.println(brand);
                 String status = nextLine[4]; //System.out.println(status);
                 Date date = toDate(nextLine[5]); //System.out.println(date);
 
-                Device dev = new Device(devId, serial, brand, type, status, date); //make new Device from read from file
+                Device dev = new Device(devId, type, serial, brand, status, date); //make new Device from read from file
                 devList.add(dev); //add new Device to ArrayList
             }
             dev_scan.close(); //close scanner
@@ -86,4 +86,5 @@ public class DeviceTracker extends JPanel{
         }
         return dateObject;
     }
+ */
 }

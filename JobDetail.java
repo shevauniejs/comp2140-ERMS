@@ -34,7 +34,7 @@ public class JobDetail extends JPanel{
         cusNumberL = new JLabel("CUSTOMER PHONE NUMBER:");
         cusEmailL = new JLabel("CUSTOMER EMAIL:");
         devTypeL = new JLabel("DEVICE TYPE:");
-        devBrandL = new JLabel("DEVICE BRAND/MODEL:");
+        devBrandL = new JLabel("BRAND/MODEL/DESCRIPTION:");
         devSerialL = new JLabel("DEVICE SERIAL NUMBER:");
         devIssueL = new JLabel("DEVICE ISSUE:");
         devDiagnosisL = new JLabel("TECHNICIAN'S DIAGNOSIS:");
@@ -132,8 +132,8 @@ public class JobDetail extends JPanel{
                     Customer currCustomer = new Customer(cusNameTF.getText(), custNumTF.getText(), cusEmailTF.getText(), currDevice);
                     
                     //Create Job and add to Job DB
-                    Job currJob = new Job(currCustomer,currDevice,0.0, 0.0, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText(), jobLocTF.getText());
                     submitData.setBackground(Color.green);
+                    Job currJob = new Job(currCustomer, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText(), jobLocTF.getText(),0.0, 0.0);
                     PaymentProc pay = new PaymentProc(currJob);
                     pay.setVisible(true);
                     /*try {

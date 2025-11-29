@@ -11,8 +11,12 @@ public class Customer{
     private Device cusDevice;
     FileWriter cusDataWriter;
 
-    public Customer(){
-
+    public Customer(int _cusId, String _name, String _number, String _email, Device _device){
+        this.name = _name;
+        this.number = _number;
+        this.email = _email;
+        this.cusDevice =_device;
+        this.customerId = _cusId;
     }
 
     public Customer(String _name, String _number, String _email, Device _device){
@@ -30,6 +34,10 @@ public class Customer{
             System.out.println("Issue writing to file..");
             e.printStackTrace();
         }
+    }
+
+    public Device getDevice(){
+        return this.cusDevice;
     }
 
     public String getName(){

@@ -28,7 +28,7 @@ public class SystemUI extends JFrame{
         UI.setTitle("Electronic Repair MS");
         ButtonListener coreListener = new ButtonListener();
         UI.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        UI.setPreferredSize(new Dimension(1024,768)); //frame size
+        UI.setPreferredSize(new Dimension(1600,900)); //frame size
         //statLabel = new JLabel("STATUS");
 
         optionsPanel = new JPanel(new GridLayout(5,1)); //left side has options to add job etc
@@ -37,8 +37,8 @@ public class SystemUI extends JFrame{
         optionsPanel.setBorder(BorderFactory.createLineBorder(Color.red));
         detailsPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
 
-        optionsPanel.setPreferredSize(new Dimension(300,720));
-        detailsPanel.setPreferredSize(new Dimension(700,720));
+        optionsPanel.setPreferredSize(new Dimension(360,800));
+        detailsPanel.setPreferredSize(new Dimension(1200,800));
 
         addJob = new JButton("ADD JOB");
         viewJob = new JButton("VIEW/UPDATE JOB");
@@ -89,13 +89,15 @@ public class SystemUI extends JFrame{
             }
             if(event.getSource()==viewJob){
                 detailsPanel.removeAll();
-                detailsPanel.add(new JButton("TestVJ"));
+                JobTracker jobTr = new JobTracker();
+                detailsPanel.add(jobTr);
                 detailsPanel.updateUI();
 
             }
             if(event.getSource()==viewCust){
                 detailsPanel.removeAll();
-                detailsPanel.add(new JButton("TestVC"));
+                CustomerTracker cusTr = new CustomerTracker();
+                detailsPanel.add(cusTr);
                 detailsPanel.updateUI();
 
             }
@@ -104,7 +106,6 @@ public class SystemUI extends JFrame{
                 DeviceTracker devTracker = new DeviceTracker();
                 detailsPanel.add(devTracker);
                 detailsPanel.updateUI();
-                mainPanel.updateUI();
             }
             if(event.getSource()==listPayments){
                 detailsPanel.removeAll();

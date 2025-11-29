@@ -10,7 +10,7 @@ public class Device{
     Date dateRcvd;
     FileWriter devDataWriter;   
     
-    public Device(int _devId, String _serial, String _brand, String _type, String _status, Date _date){
+    public Device(int _devId, String _type, String _serial, String _brand, String _status, Date _date){
         this.devId = _devId;
         this.serial = _serial;
         this.brand = _brand;
@@ -19,7 +19,7 @@ public class Device{
         this.dateRcvd = _date;
     }
 
-    public Device(String _serial, String _brand, String _type, String _status){
+    public Device(String _type, String _serial, String _brand,  String _status){
         devId = calcId();
         this.serial = _serial;
         this.brand = _brand;
