@@ -1,13 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
+
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -46,51 +40,5 @@ public class CustomerTracker extends JPanel{
         String[] item={Integer.toString(c.getCusId()),""+c.getName(),""+ c.getNumber(),""+c.getEmail(),""+ c.getDevice().getBrand_ModelInfo(),""+c.getDevice().getDate()}; //Add U data to library, each as a string
         cusTableModel.addRow(item); //from the model above, make it a new row        
     }
-/*
-    private ArrayList<Customer> loadCustomers(String cusDat){
 
-        Scanner cus_scan = null; //Scanner to read from source
-        ArrayList<Customer>   cusList = new ArrayList<Customer>(); //ArrayList to store Devices
-        try
-        {
-            cus_scan  = new Scanner(new File(cusDat)); //dev_scan reads from file
-            while(cus_scan.hasNext()) //if the file has data
-            {
-                String [] nextLine = cus_scan.nextLine().split("="); //split next line by ' ', add each string to array
-                int cusId = Integer.parseInt(nextLine[0]);
-                String cusName = nextLine[1];  
-                String cusNum = nextLine[2]; 
-                String cusEmail = nextLine[3]; 
-
-                int devId = Integer.parseInt(nextLine[4]); 
-                String type = nextLine[5];  
-                String serial = nextLine[6]; 
-                String brand = nextLine[7]; 
-                String status = nextLine[8]; 
-                Date date = toDate(nextLine[9]); 
-
-                Device dev = new Device(devId, type, serial, brand, status, date);
-                Customer cus = new Customer(cusId, cusName, cusNum, cusEmail, dev); //make new Device from read from file
-                cusList.add(cus); //add new Device to ArrayList
-            }
-            cus_scan.close(); //close scanner
-        }
-        catch(IOException e)
-        {}
-        return  cusList; //return the ArrayList
-    }
-
-     private Date toDate(String dateString){
-        String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
-        Date dateObject = null;
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
-        try {
-             dateObject = formatter.parse(dateString);
-        } catch (ParseException e) {
-            System.err.println("Error parsing date: The string format did not match the pattern.");
-            e.printStackTrace();
-        }
-        return dateObject;
-    }
-     */
 }

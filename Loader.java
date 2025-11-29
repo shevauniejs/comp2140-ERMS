@@ -49,7 +49,6 @@ public class Loader {
             while(job_scan.hasNext()) //if the file has data
             {
                 String [] nextLine = job_scan.nextLine().split("="); //split next line by ' ', add each string to array
-                System.out.println("Job"+nextLine);
                 int jobId = Integer.parseInt(nextLine[0]); //System.out.println("JOB ID: "+jobId);
                 int cusId = Integer.parseInt(nextLine[1]); //System.out.println("CUS ID: "+cusId);
                 String cusName = nextLine[2];  //System.out.println("CUS NAME: "+cusName);
@@ -71,7 +70,7 @@ public class Loader {
                 double cost = Double.parseDouble(nextLine[15]); //System.out.println("JOB COST: "+cost);
                 double amount = Double.parseDouble(nextLine[16]); //System.out.println("JOB AMOUNT: "+amount);
                 
-                Device dev = new Device(devId, type, serial, brand,status, date);
+                Device dev = new Device(devId, type, serial, brand, status, date);
                 Customer cust = new Customer(cusId, cusName, cusNum, cusEmail, dev);
                 Job job = new Job(jobId, cust, issue, diag, notes, loc, cost, amount); //make new Device from read from file
                 jobList.add(job); //add new Device to ArrayList
@@ -115,6 +114,7 @@ public class Loader {
         {}
         return  cusList; //return the ArrayList
     }
+    
     public static Date toDate(String dateString){
         String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
         Date dateObject = null;

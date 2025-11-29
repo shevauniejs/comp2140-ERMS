@@ -1,13 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -46,45 +39,5 @@ public class DeviceTracker extends JPanel{
         String[] item={Integer.toString(d.getDevID()),""+d.getType(),""+ d.getSerialNum(),""+d.getBrand_ModelInfo(),""+ d.getStatus(),""+d.getDate()}; //Add U data to library, each as a string
         devTableModel.addRow(item); //from the model above, make it a new row        
     }
-/*
-    private ArrayList<Device> loadDevices(String devDat){
 
-        Scanner dev_scan = null; //Scanner to read from source
-        ArrayList<Device>   devList = new ArrayList<Device>(); //ArrayList to store Devices
-        try
-        {
-            dev_scan  = new Scanner(new File(devDat)); //dev_scan reads from file
-            while(dev_scan.hasNext()) //if the file has data
-            {
-                String [] nextLine = dev_scan.nextLine().split("="); //split next line by ' ', add each string to array
-                int devId = Integer.parseInt(nextLine[0]); //System.out.println(devId);
-                String type = nextLine[1];  //System.out.println(type);
-                String serial = nextLine[2]; //System.out.println(serial);
-                String brand = nextLine[3]; //System.out.println(brand);
-                String status = nextLine[4]; //System.out.println(status);
-                Date date = toDate(nextLine[5]); //System.out.println(date);
-
-                Device dev = new Device(devId, type, serial, brand, status, date); //make new Device from read from file
-                devList.add(dev); //add new Device to ArrayList
-            }
-            dev_scan.close(); //close scanner
-        }
-        catch(IOException e)
-        {}
-        return  devList; //return the ArrayList
-    }
-
-    private Date toDate(String dateString){
-        String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
-        Date dateObject = null;
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
-        try {
-             dateObject = formatter.parse(dateString);
-        } catch (ParseException e) {
-            System.err.println("Error parsing date: The string format did not match the pattern.");
-            e.printStackTrace();
-        }
-        return dateObject;
-    }
- */
 }

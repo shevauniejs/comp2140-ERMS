@@ -98,7 +98,7 @@ public class Job{
         return this.storagePlace;
     }
     public String toString(){
-        String str = jobId+"="+jobCustomer+"="+techIssue+"="+ storagePlace+"="+jobCost+"="+amntPaid+"="+(jobCost-amntPaid);
+        String str = jobId+"="+jobCustomer+"="+techIssue+"="+ techDiagnosis+"="+ techNotes+"="+storagePlace+"="+jobCost+"="+amntPaid+"="+(jobCost-amntPaid);
         return str;
     }
 }

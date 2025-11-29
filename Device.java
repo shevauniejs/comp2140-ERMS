@@ -12,18 +12,18 @@ public class Device{
     
     public Device(int _devId, String _type, String _serial, String _brand, String _status, Date _date){
         this.devId = _devId;
+        this.type = _type;
         this.serial = _serial;
         this.brand = _brand;
-        this.type = _type;
         this.status= _status;
         this.dateRcvd = _date;
     }
 
     public Device(String _type, String _serial, String _brand,  String _status){
         devId = calcId();
+        this.type = _type;
         this.serial = _serial;
         this.brand = _brand;
-        this.type = _type;
         this.status= _status;
         dateRcvd = new Date();
         try {

@@ -126,7 +126,7 @@ public class JobDetail extends JPanel{
                             break; 
                         }
                     }
-                    Device currDevice = new Device(devSerialTF.getText(), devBrandTF.getText(), devTypeTF.getText(), devStat);
+                    Device currDevice = new Device(devTypeTF.getText(), devSerialTF.getText(), devBrandTF.getText(), devStat);
 
                     //Create Cust add to Cust DB
                     Customer currCustomer = new Customer(cusNameTF.getText(), custNumTF.getText(), cusEmailTF.getText(), currDevice);
