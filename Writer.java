@@ -3,18 +3,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Writer {
-    private ArrayList<Job> jobs;
     private static FileWriter DataWriter;
-    
-    public Writer(ArrayList<Job> jobList){
-        this.jobs = jobList;
-    }
 
-    public void writeTo(){
+    public static void writeTo(){
         try {
+            ArrayList <Job> tempJobs = Loader.getJobs();
             DataWriter  = new FileWriter("Jobs.dat");
-            for(Job job: jobs){
-                DataWriter = new FileWriter("Job.dat",true);
+            for(Job job: tempJobs){
+                DataWriter = new FileWriter("Jobs.dat",true);
                 DataWriter.write(job.toString()+"\n");
             }
             DataWriter.close();

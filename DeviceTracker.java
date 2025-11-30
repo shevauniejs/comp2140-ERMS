@@ -20,8 +20,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class DeviceTracker extends JPanel{
     private JPanel host = this;
-    private ArrayList <Device> devices = new ArrayList<Device>(); 
-    private ArrayList<Job> jobs;
     private JTable devTable;
     private DefaultTableModel devTableModel;
     
@@ -39,16 +37,11 @@ public class DeviceTracker extends JPanel{
         setLayout(new GridLayout(3,1));
 		setBorder(BorderFactory.createLineBorder(Color.cyan));
 
-        jobs = Loader.loadJobs("Jobs.dat");
-        for(Job aJob:jobs){
-            devices.add(aJob.getDevice());           
-        }
-
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
         devTableModel = new NonEditTableMod(columnNames,0);
         devTable = new JTable(devTableModel);
-        showTable(devices);
-        devTable.setPreferredScrollableViewportSize(new Dimension(1000, devices.size()*15 +20));
+        showTable(Loader.getJobs());
+        devTable.setPreferredScrollableViewportSize(new Dimension(1000, Loader.getJobs().size()*15 +20));
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
 
@@ -103,17 +96,17 @@ public class DeviceTracker extends JPanel{
         devTable.setSelectionBackground(Color.yellow);
     }
 
-    private void showTable(ArrayList<Device> dList){
+    private void showTable(ArrayList<Job> jList){
         int counter;
-        if (dList.size()>0){ //List size must be greater than 0
-            for(counter=0;counter<dList.size();counter++){            
-                addToTable(dList.get(counter)); //add first item -upd: 1a. add all Devices
+        if (jList.size()>0){ //List size must be greater than 0
+            for(counter=0;counter<jList.size();counter++){            
+                addToTable(jList.get(counter)); //add first item -upd: 1a. add all Devices
                 }
             }
     }
 
-    private void addToTable(Device d){
-        String[] item={Integer.toString(d.getDevID()),""+d.getType(),""+ d.getSerialNum(),""+d.getBrand_ModelInfo(),""+ d.getStatus(),""+d.getDate()}; //Add U data to library, each as a string
+    private void addToTable(Job job){
+        String[] item={Integer.toString(job.getDevice().getDevID()),""+job.getDevice().getType(),""+ job.getDevice().getSerialNum(),""+job.getDevice().getBrand_ModelInfo(),""+ job.getDevice().getStatus(),""+job.getDevice().getDate()}; //Add U data to library, each as a string
         devTableModel.addRow(item); //from the model above, make it a new row        
     }
 
@@ -121,7 +114,7 @@ public class DeviceTracker extends JPanel{
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==searchButton){
                 System.out.println("BUTTON CLICKED");
-                ArrayList<Device> filteredDevList = Searcher.devSearcher(devices, searchTF.getText());
+                ArrayList<Job> filteredDevList = Searcher.devSearcher(Loader.getJobs(), searchTF.getText());
                 
                 if(filteredDevList.size()>0){
                     devTableModel.setRowCount(0);;
@@ -131,11 +124,11 @@ public class DeviceTracker extends JPanel{
                 }else{
                     JOptionPane.showMessageDialog(host, "NO DEVICES NOT FOUND");
                     devTableModel.setRowCount(0);
-                    showTable(devices);
+                    showTable(Loader.getJobs());
                 }
             }
             else if(event.getSource()==scanBtn){
-                for(Job aJob:jobs){
+                for(Job aJob:Loader.getJobs()){
                     if((ChronoUnit.DAYS.between(aJob.getDevice().getDate(), LocalDate.now())>=30)||(aJob.getDevice().getStatus().compareTo("READY")==0)){
                         JOptionPane.showMessageDialog(host, aJob.getCustomer().getName()+" HAS NOT PICKED UP THEIR "+aJob.getDevice().getType()+"\nGIVE THEM A CALL AT "+aJob.getCustomer().getNumber());
             }            

@@ -18,8 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class CustomerTracker extends JPanel{
     private JPanel host = this;
-    private ArrayList <Customer> customers = new ArrayList<Customer>(); 
-    private ArrayList<Job> jobs;
     private JTable cusTable;
     private DefaultTableModel cusTableModel;
     private JScrollPane scrollPane;
@@ -37,17 +35,11 @@ public class CustomerTracker extends JPanel{
         setLayout(new GridLayout(3,1));
         setBorder(BorderFactory.createLineBorder(Color.cyan));
         
-        jobs = Loader.loadJobs("Jobs.dat");
-
-        for(Job ajob: jobs){
-            customers.add(ajob.getCustomer());
-        }
-        
         String [] columnNames = {"Customer ID","Name", "Phone Number", "Email", "Device","Date Received"};
         cusTableModel = new NonEditTableMod(columnNames,0);
         cusTable = new JTable(cusTableModel);
-        showTable(customers);
-        cusTable.setPreferredScrollableViewportSize(new Dimension(1000, customers.size()*15 +20));
+        showTable(Loader.getJobs());
+        cusTable.setPreferredScrollableViewportSize(new Dimension(1000, Loader.getJobs().size()*15 +20));
         cusTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(cusTable); //Why are you here? I make your table visible :-)     
         
@@ -91,21 +83,21 @@ public class CustomerTracker extends JPanel{
         cusTable.setSelectionBackground(Color.yellow);
     }
 
-    private void showTable(ArrayList<Customer> cList){
+    private void showTable(ArrayList<Job> jList){
         int counter;
-        if (cList.size()>0){ //List size must be greater than 0
-            for(counter=0;counter<cList.size();counter++){            
-                addToTable(cList.get(counter)); //add first item -upd: 1a. add all Devices
+        if (jList.size()>0){ //List size must be greater than 0
+            for(counter=0;counter<jList.size();counter++){            
+                addToTable(jList.get(counter)); //add first item -upd: 1a. add all Devices
                 }
             }
     }
 
-    private void showTable(Customer cust){
-        addToTable(cust);
+    private void showTable(Job j){
+        addToTable(j);
     }
 
-    private void addToTable(Customer c){
-        String[] item={Integer.toString(c.getCusId()),""+c.getName(),""+ c.getNumber(),""+c.getEmail(),""+ c.getDevice().getBrand_ModelInfo(),""+c.getDevice().getDate()}; //Add U data to library, each as a string
+    private void addToTable(Job j){
+        String[] item={Integer.toString(j.getCustomer().getCusId()),""+j.getCustomer().getName(),""+ j.getCustomer().getNumber(),""+j.getCustomer().getEmail(),""+ j.getCustomer().getDevice().getBrand_ModelInfo(),""+j.getCustomer().getDevice().getDate()}; //Add U data to library, each as a string
         cusTableModel.addRow(item); //from the model above, make it a new row        
     }
 
@@ -113,8 +105,8 @@ public class CustomerTracker extends JPanel{
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==searchButton){
                 System.out.println("BUTTON CLICKED");
-                Customer filteredCust = Searcher.cusSearcher(customers, searchTF.getText());
-                ArrayList<Customer> filteredCustList = Searcher.cusSearcher(customers,null,searchTF.getText());
+                Job filteredCust = Searcher.cusSearcher(Loader.getJobs(), searchTF.getText());
+                ArrayList<Job> filteredCustList = Searcher.cusSearcher(Loader.getJobs(),null,searchTF.getText());
                 if(filteredCust!= null){
                     cusTableModel.setRowCount(0);
                     addToTable(filteredCust);
@@ -131,14 +123,13 @@ public class CustomerTracker extends JPanel{
             else if(event.getSource()==updBtn){
                 NonEditTableMod tMod = (NonEditTableMod)cusTable.getModel();
                 int cId = Integer.parseInt(tMod.getValueAt(cusTable.getSelectedRow(), 0).toString());
-                Customer actCustomer = Searcher.getCusViaId(customers, cId);
+                Customer actCustomer = Searcher.getCusViaId(cId);
                 if(actCustomer!=null){
                     actCustomer.setName(nameTF.getText());
                     actCustomer.setEmail(emailTF.getText());
                     actCustomer.setNumber(numberTF.getText());
                     JOptionPane.showMessageDialog(host, "CUSTOMER INFORMATION UPDATED!");
-                    Writer write = new Writer(jobs);
-                    write.writeTo();
+                    Writer.writeTo();
                 }
             }
         }
