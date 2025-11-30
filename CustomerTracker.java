@@ -41,7 +41,7 @@ public class CustomerTracker extends JPanel{
         }
         
         String [] columnNames = {"Customer ID","Name", "Phone Number", "Email", "Device","Date Received"};
-        cusTableModel = new DefaultTableModel(columnNames,0);
+        cusTableModel = new NonEditTableMod(columnNames,0);
         cusTable = new JTable(cusTableModel);
         showTable(customers);
         cusTable.setPreferredScrollableViewportSize(new Dimension(1000, customers.size()*15 +20));

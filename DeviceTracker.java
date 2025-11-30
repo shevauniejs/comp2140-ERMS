@@ -42,7 +42,7 @@ public class DeviceTracker extends JPanel{
         }
 
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
-        devTableModel = new DefaultTableModel(columnNames,0);
+        devTableModel = new NonEditTableMod(columnNames,0);
         devTable = new JTable(devTableModel);
         showTable(devices);
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, devices.size()*15 +20));

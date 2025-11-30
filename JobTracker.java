@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -24,20 +26,21 @@ public class JobTracker extends JPanel{
     private JPanel searchPanel, subDetailsPanel;
     private JTextField searchTF, notesTF;
     private JButton searchButton, updBtn;
-    private ButtonListener mainListener = new ButtonListener();
+    private ButtonListener btnListener = new ButtonListener();
+    private tMouseListener clickListener = new tMouseListener();
 
     public JobTracker(){
         setLayout(new GridLayout(3,1));
         jobs =Loader.loadJobs("Jobs.dat");
         String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Issue", "Notes","Diagnosis","Status"};
-        devTableModel = new DefaultTableModel(columnNames,0);
+        devTableModel = new NonEditTableMod(columnNames,0);
         devTable = new JTable(devTableModel);
         showTable(jobs);
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, jobs.size()*15 +20));
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
-
-
+        devTable.addMouseListener(clickListener);
+        
         searchPanel = new JPanel(new GridLayout(3,1));
         searchL = new JLabel("FILTER BY STATUS");
         searchTF = new JTextField();
@@ -45,7 +48,7 @@ public class JobTracker extends JPanel{
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
-        searchButton.addActionListener(mainListener);
+        searchButton.addActionListener(btnListener);
 
         subDetailsPanel = new JPanel(new GridLayout(3,1));
         notesL = new JLabel("NOTES");
@@ -97,4 +100,37 @@ public class JobTracker extends JPanel{
         }
     }
 
+    private class tMouseListener implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(e.getClickCount()==2){
+                JOptionPane.showMessageDialog(host, "CLICKED");
+            }
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            System.out.println("MOUSE ENTERED");
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            // TODO Auto-generated method stub
+            System.out.println("EXITED");
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            // TODO Auto-generated method stub
+            System.out.println("PRESSED");
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            // TODO Auto-generated method stub
+            System.out.println("RELEASED");
+        }
+        
+    }
 }
