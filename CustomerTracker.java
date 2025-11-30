@@ -1,18 +1,22 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class CustomerTracker extends JPanel{
+    private JPanel host = this;
     private ArrayList <Customer> customers; 
     private JTable cusTable;
     private DefaultTableModel cusTableModel;
@@ -22,6 +26,8 @@ public class CustomerTracker extends JPanel{
     private JTextField searchTF, nameTF, numberTF, emailTF;
     private JPanel searchPanel, cusDetailsPanel;
     private JButton searchButton, updBtn;
+
+    private ButtonListener mainListener = new ButtonListener();
     
 
     public CustomerTracker(){
@@ -37,9 +43,12 @@ public class CustomerTracker extends JPanel{
         scrollPane = new JScrollPane(cusTable); //Why are you here? I make your table visible :-)     
     
         searchPanel = new JPanel(new GridLayout(3,1));
-        searchL = new JLabel("SEARCH BY NAME, NUMBER OR ID");
+        searchL = new JLabel("SEARCH BY NAME, EMAIL OR NUMBER");
         searchTF = new JTextField();
         searchButton = new JButton("SEARCH");
+
+        searchButton.addActionListener(mainListener);
+
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
@@ -79,9 +88,34 @@ public class CustomerTracker extends JPanel{
             }
     }
 
+    private void showTable(Customer cust){
+        addToTable(cust);
+    }
+
     private void addToTable(Customer c){
         String[] item={Integer.toString(c.getCusId()),""+c.getName(),""+ c.getNumber(),""+c.getEmail(),""+ c.getDevice().getBrand_ModelInfo(),""+c.getDevice().getDate()}; //Add U data to library, each as a string
         cusTableModel.addRow(item); //from the model above, make it a new row        
     }
 
+    private class ButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+            if(event.getSource()==searchButton){
+                System.out.println("BUTTON CLICKED");
+                Customer filteredCust = Searcher.cusSearcher(customers, searchTF.getText());
+                ArrayList<Customer> filteredCustList = Searcher.cusSearcher(customers,null,searchTF.getText());
+                if(filteredCust!= null){
+                    cusTableModel.setRowCount(0);
+                    addToTable(filteredCust);
+                }else if(filteredCustList.size()!=0){
+                    cusTableModel.setRowCount(0);
+                    showTable(filteredCustList);
+                }else{
+                    JOptionPane.showMessageDialog(host,"CUSTOMER NOT FOUND");
+                }
+                showTable(filteredCust);
+                scrollPane.updateUI();
+                updateUI();
+            }
+        }
+    }
 }

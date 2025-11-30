@@ -1,10 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class JobTracker extends JPanel{
+    private JPanel host = this;
     private ArrayList <Job> jobs; 
     private JTable devTable;
     private DefaultTableModel devTableModel;
@@ -20,6 +24,7 @@ public class JobTracker extends JPanel{
     private JPanel searchPanel, subDetailsPanel;
     private JTextField searchTF, notesTF;
     private JButton searchButton, updBtn;
+    private ButtonListener mainListener = new ButtonListener();
 
     public JobTracker(){
         setLayout(new GridLayout(3,1));
@@ -34,12 +39,13 @@ public class JobTracker extends JPanel{
 
 
         searchPanel = new JPanel(new GridLayout(3,1));
-        searchL = new JLabel("SEARCH BY NAME, NUMBER OR ID");
+        searchL = new JLabel("FILTER BY STATUS");
         searchTF = new JTextField();
-        searchButton = new JButton("SEARCH");
+        searchButton = new JButton("FILTER");
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
+        searchButton.addActionListener(mainListener);
 
         subDetailsPanel = new JPanel(new GridLayout(3,1));
         notesL = new JLabel("NOTES");
@@ -53,6 +59,7 @@ public class JobTracker extends JPanel{
         subDetailsPanel.setPreferredSize(new Dimension(10,100));
 
         add(scrollPane);
+        add(searchPanel);
         add(subDetailsPanel);
         devTable.setSelectionBackground(Color.yellow);
     }
@@ -69,6 +76,25 @@ public class JobTracker extends JPanel{
     private void addToTable(Job j){
         String[] item={Integer.toString(j.getJobId()),""+j.getCustomer().getName(),""+ j.getDevice().getBrand_ModelInfo(),""+j.getIssue(),""+ j.getNotes(),""+j.getDiagnosis(),""+j.getDevice().getStatus()}; //Add U data to library, each as a string
         devTableModel.addRow(item); //from the model above, make it a new row        
+    }
+
+    private class ButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+            if(event.getSource()==searchButton){
+                System.out.println("BUTTON CLICKED");
+                ArrayList<Job> filteredJobList = Searcher.jobSearcher(jobs, searchTF.getText());
+                    if(filteredJobList.size()!=0){
+                    devTableModel.setRowCount(0);;
+                    showTable(filteredJobList);
+                    scrollPane.updateUI();
+                    updateUI();
+                }else{
+                    JOptionPane.showMessageDialog(host, "JOB NOT FOUND");
+                    devTableModel.setRowCount(0);;
+                    showTable(jobs);
+                }
+            }
+        }
     }
 
 }

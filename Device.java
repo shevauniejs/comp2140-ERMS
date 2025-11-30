@@ -26,15 +26,6 @@ public class Device{
         this.brand = _brand;
         this.status= _status;
         dateRcvd = new Date();
-        try {
-            devDataWriter  = new FileWriter("Devices.dat", true);
-            devDataWriter.write(this.toString()+"\n");
-            devDataWriter.close();
-        } catch (IOException e) {
-            //Auto-generated catch block
-            System.out.println("File issue");
-            e.printStackTrace();
-        }
     }
     
     private int calcId(){

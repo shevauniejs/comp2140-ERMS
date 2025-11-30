@@ -27,15 +27,7 @@ public class Customer{
         this.email = _email;
         this.cusDevice =_device;
         this.customerId = calcId();
-        try {
-            cusDataWriter  = new FileWriter("Customers.dat", true);
-            cusDataWriter.write(this.toString()+"\n");
-            cusDataWriter.close();
-        } catch (IOException e) {
-            //Auto-generated catch block
-            System.out.println("Issue writing to file..");
-            e.printStackTrace();
-        }
+        this.cusJobs = new ArrayList<Job>();
     }
 
     public void addJob(Job cJob){

@@ -15,7 +15,7 @@ public class Loader {
     public static ArrayList<Device> loadDevices(String devDat){
 
         Scanner dev_scan = null; //Scanner to read from source
-        ArrayList<Device>   devList = new ArrayList<Device>(); //ArrayList to store Devices
+        ArrayList<Device> devList = new ArrayList<Device>(); //ArrayList to store Devices
         try
         {
             dev_scan  = new Scanner(new File(devDat)); //dev_scan reads from file
