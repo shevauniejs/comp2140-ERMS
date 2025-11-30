@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class JobTracker extends JPanel{
     private JPanel host = this;
-    private ArrayList <Job> jobs; 
     private JTable devTable;
     private DefaultTableModel devTableModel;
     private JScrollPane scrollPane;
@@ -31,12 +30,13 @@ public class JobTracker extends JPanel{
 
     public JobTracker(){
         setLayout(new GridLayout(3,1));
-        jobs =Loader.loadJobs("Jobs.dat");
+        setBorder(BorderFactory.createLineBorder(Color.cyan));
+
         String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Issue", "Notes","Diagnosis","Status"};
         devTableModel = new NonEditTableMod(columnNames,0);
         devTable = new JTable(devTableModel);
-        showTable(jobs);
-        devTable.setPreferredScrollableViewportSize(new Dimension(1000, jobs.size()*15 +20));
+        showTable(Loader.getJobs());
+        devTable.setPreferredScrollableViewportSize(new Dimension(1000, Loader.getJobs().size()*15 +20));
         devTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
         devTable.addMouseListener(clickListener);
@@ -84,7 +84,7 @@ public class JobTracker extends JPanel{
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==searchButton){
                 System.out.println("BUTTON CLICKED");
-                ArrayList<Job> filteredJobList = Searcher.jobSearcher(jobs, searchTF.getText());
+                ArrayList<Job> filteredJobList = Searcher.jobSearcher(Loader.getJobs(), searchTF.getText());
                     if(filteredJobList.size()!=0){
                         devTableModel.setRowCount(0);
                         showTable(filteredJobList);
@@ -93,7 +93,7 @@ public class JobTracker extends JPanel{
                     }else{
                         JOptionPane.showMessageDialog(host, "JOB NOT FOUND");
                         devTableModel.setRowCount(0);;
-                        showTable(jobs);
+                        showTable(Loader.getJobs());
                     }
                     searchTF.setText("");
             }
@@ -102,7 +102,6 @@ public class JobTracker extends JPanel{
 
     private class tMouseListener implements MouseListener{
 
-        @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getClickCount()==2){
                 devTable.setSelectionForeground(Color.red);
@@ -110,22 +109,18 @@ public class JobTracker extends JPanel{
             }
         }
 
-        @Override
         public void mouseEntered(MouseEvent e) {
             devTable.setSelectionForeground(Color.black);
         }
 
-        @Override
         public void mouseExited(MouseEvent e) {
             devTable.setSelectionBackground(Color.white);
         }
 
-        @Override
         public void mousePressed(MouseEvent e) {
             devTable.setSelectionBackground(Color.cyan);
         }
 
-        @Override
         public void mouseReleased(MouseEvent e) {
             devTable.setSelectionBackground(Color.white);
         }

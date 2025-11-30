@@ -89,18 +89,10 @@ public class PaymentProc extends JFrame{
                      "\tFailure to retrieve after 30 days will incur a storage fee or device being sold."+
                      "\n\n\t\t\tThanks for doing business!");
                     
-                    FileWriter jobDataWriter, devDataWriter, cusDataWriter;
+                    FileWriter jobDataWriter;
                     try {
                         jobDataWriter  = new FileWriter("Jobs.dat", true);
-                        cusDataWriter  = new FileWriter("Customers.dat", true);
-                        devDataWriter  = new FileWriter("Devices.dat", true);
-
-                        devDataWriter.write(currJob.getDevice().toString()+"\n");
-                        cusDataWriter.write(currJob.getCustomer().toString()+"\n");
                         jobDataWriter.write(currJob.toString()+"\n");
-                        
-                        devDataWriter.close();
-                        cusDataWriter.close();
                         jobDataWriter.close();
                     } catch (IOException e) {
                         //Auto-generated catch block

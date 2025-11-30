@@ -5,11 +5,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Loader {
-
+    private static ArrayList<Job>jobs;
 
     public Loader(){}
+    
+    static{
+        jobs = loadJobs("Jobs.dat");
+    }
+    public static ArrayList<Job> getJobs(){
+        return jobs;
+    }
 
-    public static ArrayList<Job> loadJobs(String jobDat){
+    private static ArrayList<Job> loadJobs(String jobDat){
 
         Scanner job_scan = null; //Scanner to read from source
         ArrayList<Job>   jobList = new ArrayList<Job>(); //ArrayList to store JobsloadJobs

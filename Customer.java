@@ -53,6 +53,17 @@ public class Customer{
         return this.email;
     }
 
+    public void setName(String newName){
+        this.name=newName;
+    }
+
+    public void setNumber(String newNumber){
+        this.number=newNumber;
+    }
+
+    public void setEmail(String newEmail){
+        this.email = newEmail;
+    }
     private int calcId(){
         ThreadLocalRandom random = ThreadLocalRandom.current();
         int rand = random.nextInt(0+1, 10000);
