@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Searcher {
     
-    public static String devSearcher(ArrayList<Device> devList, String searchParam){
-        String found = "";
+    public static ArrayList<Device> devSearcher(ArrayList<Device> devList, String searchParam){
+        ArrayList<Device> found = new ArrayList<Device>();
         for(Device devInstance: devList){
-            if(devInstance.getStatus()==searchParam){
-                found = devInstance.toString();
+            if(devInstance.getStatus().toLowerCase().contains(searchParam)|| (devInstance.getStatus().compareToIgnoreCase(searchParam)==0)){
+                found.add(devInstance);
             }
         }
         return found;
@@ -24,13 +24,14 @@ public class Searcher {
         }
         return found;
     }
+    
     public static ArrayList<Customer> cusSearcher(ArrayList<Customer> cusList, Customer _null_, String searchParam){
         ArrayList<Customer> found = new ArrayList<Customer>();
 
         for(Customer cusInstance: cusList){
-            if((cusInstance.getName().contains(searchParam))||
-            (cusInstance.getNumber().contains(searchParam))||
-            (cusInstance.getEmail()==searchParam)
+            if((cusInstance.getName().toLowerCase().contains(searchParam.toLowerCase()))||
+            (cusInstance.getNumber().toLowerCase().contains(searchParam.toLowerCase()))||
+            (cusInstance.getEmail().toLowerCase().contains(searchParam.toLowerCase()))
         ){
                 found.add(cusInstance);
             }
@@ -40,12 +41,9 @@ public class Searcher {
 
     public static ArrayList<Job> jobSearcher(ArrayList<Job> jobList, String searchParam){
         ArrayList <Job> found = new ArrayList<Job>();
-        System.out.println("EXECUTED");
         for(Job jobInstance: jobList){
-            System.out.println("SEARCHING");
-            if(jobInstance.getDevice().getStatus().compareToIgnoreCase(searchParam)==0){
+            if(jobInstance.getDevice().getStatus().toLowerCase().contains(searchParam)){
                 found.add(jobInstance);
-                System.out.println("JOB FOUND");
             }
         }
         return found;
