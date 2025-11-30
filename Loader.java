@@ -1,10 +1,7 @@
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Loader {
@@ -33,7 +30,7 @@ public class Loader {
                 String serial = nextLine[7]; //System.out.println("DEV SERIAL: "+serial);
                 String brand = nextLine[8]; //System.out.println("DEV BRAND: "+brand);
                 String status = nextLine[9]; //System.out.println("DEV STATUS: "+status);
-                Date date = toDate(nextLine[10]);
+                LocalDate date = LocalDate.parse(nextLine[10]);
 
                     
                 String issue = nextLine[11]; //System.out.println("JOB ISSUE: "+issue);
@@ -53,18 +50,5 @@ public class Loader {
         catch(IOException e)
         {}
         return  jobList; //return the ArrayList
-    }
-
-    public static Date toDate(String dateString){
-        String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
-        Date dateObject = null;
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
-        try {
-             dateObject = formatter.parse(dateString);
-        } catch (ParseException e) {
-            System.err.println("Error parsing date: The string format did not match the pattern.");
-            e.printStackTrace();
-        }
-        return dateObject;
     }
 }

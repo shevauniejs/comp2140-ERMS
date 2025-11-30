@@ -1,15 +1,15 @@
 import java.io.FileWriter;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Device{
     static int countId = 20000000;
     private int devId;
     private String  serial, brand, type, status;
-    Date dateRcvd;
+    private LocalDate dateRcvd;
     FileWriter devDataWriter;   
     
-    public Device(int _devId, String _type, String _serial, String _brand, String _status, Date _date){
+    public Device(int _devId, String _type, String _serial, String _brand, String _status, LocalDate _date){
         this.devId = _devId;
         this.type = _type;
         this.serial = _serial;
@@ -24,7 +24,7 @@ public class Device{
         this.serial = _serial;
         this.brand = _brand;
         this.status= _status;
-        dateRcvd = new Date();
+        dateRcvd = LocalDate.now();
     }
     
     private int calcId(){
@@ -53,11 +53,11 @@ public class Device{
         return this.serial;
     }
 
-    public String getDate(){
-        return dateRcvd.toString();
+    public LocalDate getDate(){
+        return dateRcvd;
     }
     
-    public void setDate(Date newDate){
+    public void setDate(LocalDate newDate){
         dateRcvd = newDate;
     }
 
