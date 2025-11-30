@@ -17,7 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class CustomerTracker extends JPanel{
     private JPanel host = this;
-    private ArrayList <Customer> customers; 
+    private ArrayList <Customer> customers = new ArrayList<Customer>(); 
+    private ArrayList<Job> jobs;
     private JTable cusTable;
     private DefaultTableModel cusTableModel;
     private JScrollPane scrollPane;
@@ -33,7 +34,12 @@ public class CustomerTracker extends JPanel{
     public CustomerTracker(){
         setLayout(new GridLayout(3,1));
         
-        customers = Loader.loadCustomers("Customers.dat");
+        jobs = Loader.loadJobs("Jobs.dat");
+
+        for(Job ajob: jobs){
+            customers.add(ajob.getCustomer());
+        }
+        
         String [] columnNames = {"Customer ID","Name", "Phone Number", "Email", "Device","Date Received"};
         cusTableModel = new DefaultTableModel(columnNames,0);
         cusTable = new JTable(cusTableModel);

@@ -14,7 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class DeviceTracker extends JPanel{
-    private ArrayList <Device> devices; 
+    private ArrayList <Device> devices = new ArrayList<Device>(); 
+    private ArrayList<Job> jobs;
     private JTable devTable;
     private DefaultTableModel devTableModel;
     
@@ -30,7 +31,11 @@ public class DeviceTracker extends JPanel{
     public DeviceTracker(){
         setLayout(new GridLayout(3,1));
 
-        devices = Loader.loadDevices("Devices.dat");
+        jobs = Loader.loadJobs("Jobs.dat");
+        for(Job aJob:jobs){
+            devices.add(aJob.getDevice());
+        }
+
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
         devTableModel = new DefaultTableModel(columnNames,0);
         devTable = new JTable(devTableModel);

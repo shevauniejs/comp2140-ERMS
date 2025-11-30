@@ -86,8 +86,16 @@ public class Job{
         return this.jobDevice;
     }
 
+    public void setDevice(Device newDevice){
+        this.jobDevice = newDevice;
+    }
+
     public Customer getCustomer(){
         return this.jobCustomer;
+    }
+
+    public void setCustomer(Customer newCustomer){
+        this.jobCustomer = newCustomer;
     }
 
     public void setStoragePlace(String place) {
