@@ -104,7 +104,6 @@ public class JobTracker extends JPanel{
 
     private class tMouseListener implements MouseListener{
 
-        @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getClickCount()==2){
                 devTable.setSelectionForeground(Color.red);
@@ -112,22 +111,18 @@ public class JobTracker extends JPanel{
             }
         }
 
-        @Override
         public void mouseEntered(MouseEvent e) {
             devTable.setSelectionForeground(Color.black);
         }
 
-        @Override
         public void mouseExited(MouseEvent e) {
             devTable.setSelectionBackground(Color.white);
         }
 
-        @Override
         public void mousePressed(MouseEvent e) {
             devTable.setSelectionBackground(Color.cyan);
         }
 
-        @Override
         public void mouseReleased(MouseEvent e) {
             devTable.setSelectionBackground(Color.white);
         }

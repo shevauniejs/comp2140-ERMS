@@ -2,7 +2,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
@@ -27,7 +29,8 @@ public class CustomerTracker extends JPanel{
     private JPanel searchPanel, cusDetailsPanel;
     private JButton searchButton, updBtn;
 
-    private ButtonListener mainListener = new ButtonListener();
+    private ButtonListener buttonListener = new ButtonListener();
+    private tMouseListener clickListener = new tMouseListener();
     
 
     public CustomerTracker(){
@@ -47,13 +50,15 @@ public class CustomerTracker extends JPanel{
         cusTable.setPreferredScrollableViewportSize(new Dimension(1000, customers.size()*15 +20));
         cusTable.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(cusTable); //Why are you here? I make your table visible :-)     
-    
+        
+        cusTable.addMouseListener(clickListener);
+        
         searchPanel = new JPanel(new GridLayout(3,1));
         searchL = new JLabel("SEARCH BY NAME, EMAIL OR NUMBER");
         searchTF = new JTextField();
         searchButton = new JButton("SEARCH");
 
-        searchButton.addActionListener(mainListener);
+        searchButton.addActionListener(buttonListener);
 
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
@@ -66,8 +71,9 @@ public class CustomerTracker extends JPanel{
         nameTF = new JTextField();
         numberTF = new JTextField();
         emailTF = new JTextField();
-        updBtn = new JButton("UPDATE");
 
+        updBtn = new JButton("UPDATE");
+        updBtn.addActionListener(buttonListener);
         
         cusDetailsPanel.add(nameL, null, 0);
         cusDetailsPanel.add(nameTF, null, 1);
@@ -122,6 +128,56 @@ public class CustomerTracker extends JPanel{
                 scrollPane.updateUI();
                 updateUI();
             }
+            else if(event.getSource()==updBtn){
+                NonEditTableMod tMod = (NonEditTableMod)cusTable.getModel();
+                int cId = Integer.parseInt(tMod.getValueAt(cusTable.getSelectedRow(), 0).toString());
+                Customer actCustomer = Searcher.getCusViaId(customers, cId);
+                if(actCustomer!=null){
+                    actCustomer.setName(nameTF.getText());
+                    actCustomer.setEmail(emailTF.getText());
+                    actCustomer.setNumber(numberTF.getText());
+                    JOptionPane.showMessageDialog(host, "CUSTOMER INFORMATION UPDATED!");
+                    Writer write = new Writer(jobs);
+                    write.writeTo();
+                }
+            }
         }
     }
+    
+    private class tMouseListener implements MouseListener{
+            
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount()==2){
+                    cusTable.setSelectionForeground(Color.red);
+                    JOptionPane.showMessageDialog(host, "CLICKED");
+                    NonEditTableMod tMod = (NonEditTableMod)cusTable.getModel();
+                    String cName = tMod.getValueAt(cusTable.getSelectedRow(), 1).toString();
+                    String cPhoneNumber = tMod.getValueAt(cusTable.getSelectedRow(), 2).toString();
+                    String cEmail = tMod.getValueAt(cusTable.getSelectedRow(), 3).toString();
+                    
+
+                    nameTF.setText(cName);
+                    numberTF.setText(cPhoneNumber);
+                    emailTF.setText(cEmail);
+                }
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                cusTable.setSelectionForeground(Color.black);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                cusTable.setSelectionBackground(Color.white);
+            }
+
+            public void mousePressed(MouseEvent e) {
+                cusTable.setSelectionBackground(Color.cyan);
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                cusTable.setSelectionBackground(Color.white);
+            }
+            
+        }
+
 }

@@ -12,6 +12,18 @@ public class Searcher {
         return found;
     }
 
+    public static Customer getCusViaId(ArrayList<Customer> cusList, int id){
+        Customer cs = null;
+
+        for(Customer c: cusList){
+            if(c.getCusId()==id){
+                cs = c;
+                break;
+            }
+        }
+        return cs;
+    }
+
     public static Customer cusSearcher(ArrayList<Customer> cusList, String searchParam){
         Customer found = null;
         for(Customer cusInstance: cusList){
