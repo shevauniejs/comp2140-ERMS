@@ -45,7 +45,7 @@ public class JobDetail extends JPanel{
         statPend = new JRadioButton("PENDING");
         statAwait = new JRadioButton("AWAITING PARTS");
         statInProg = new JRadioButton("IN PROGRESS");
-        statComplete = new JRadioButton("COMPLETE");
+        statComplete = new JRadioButton("REPAIR COMPLETE");
         radios = new ButtonGroup();
         radios.add(statPend);
         radios.add(statInProg);
@@ -136,13 +136,6 @@ public class JobDetail extends JPanel{
                     Job currJob = new Job(currCustomer, devIssTF.getText(), devDiagTF.getText(), devNotesTF.getText(), jobLocTF.getText(),0.0, 0.0);
                     PaymentProc pay = new PaymentProc(currJob);
                     pay.setVisible(true);
-                    /*try {
-                        Thread.sleep(1000, 0);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    devPanel.setVisible(false);*/
                 }
         }
     }

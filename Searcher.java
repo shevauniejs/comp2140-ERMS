@@ -25,6 +25,19 @@ public class Searcher {
         return idFound;
     }
 
+    public static int getDevViaId(int id){
+        int idFound=0, x;
+        for(x=0; x<Loader.getJobs().size();x++){
+            if(Loader.getJobs().get(x).getDevice().getDevID()==id){
+                idFound = x;
+                break;
+            }else{
+                idFound=-1;
+            }
+        }
+        return idFound;
+    }
+
     public static Job cusSearcher(ArrayList<Job> jobList, String searchParam){
         Job found = null;
         for(Job jobInstance: jobList){

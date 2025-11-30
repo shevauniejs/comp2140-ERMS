@@ -2,10 +2,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -32,6 +35,7 @@ public class DeviceTracker extends JPanel{
     private ButtonGroup radios;
     private JRadioButton pending, inprogress, complete, awaitingparts, pickup, collected;
     private ButtonListener buttonListener = new ButtonListener();
+    private tMouseListener mouseListener = new tMouseListener();
 
     public DeviceTracker(){
         setLayout(new GridLayout(3,1));
@@ -48,18 +52,21 @@ public class DeviceTracker extends JPanel{
         searchPanel = new JPanel(new GridLayout(3,1));
         searchL = new JLabel("SEARCH BY STATUS");
         searchTF = new JTextField();
-        searchButton = new JButton("SEARCH");
+        searchButton = new JButton("SEARCH|REFRESH");
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
 
-        searchButton.addActionListener(buttonListener);
-
         subDetailsPanel = new JPanel(new GridLayout(2,2));
         statusL = new JLabel("DEVICE STATUS");
+        
         scanBtn = new JButton("SCAN FOR OVERDUE/READY DEVICES");
         updBtn = new JButton("UPDATE");
-       
+
+        statusL.setForeground(Color.black);
+
+        searchButton.addActionListener(buttonListener);
+        updBtn.addActionListener(buttonListener);
         scanBtn.addActionListener(buttonListener);
 
         radios = new ButtonGroup();
@@ -93,7 +100,7 @@ public class DeviceTracker extends JPanel{
         add(scrollPane);
         add(subDetailsPanel);
         add(searchPanel);
-        devTable.setSelectionBackground(Color.yellow);
+        devTable.addMouseListener(mouseListener);
     }
 
     private void showTable(ArrayList<Job> jList){
@@ -113,7 +120,6 @@ public class DeviceTracker extends JPanel{
     private class ButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==searchButton){
-                System.out.println("BUTTON CLICKED");
                 ArrayList<Job> filteredDevList = Searcher.devSearcher(Loader.getJobs(), searchTF.getText());
                 
                 if(filteredDevList.size()>0){
@@ -127,13 +133,65 @@ public class DeviceTracker extends JPanel{
                     showTable(Loader.getJobs());
                 }
             }
+            
             else if(event.getSource()==scanBtn){
                 for(Job aJob:Loader.getJobs()){
-                    if((ChronoUnit.DAYS.between(aJob.getDevice().getDate(), LocalDate.now())>=30)||(aJob.getDevice().getStatus().compareTo("READY")==0)){
+                    if((ChronoUnit.DAYS.between(aJob.getDevice().getDate(), LocalDate.now())>=30)||(aJob.getDevice().getStatus().compareTo("PICKUP READY")==0)){
                         JOptionPane.showMessageDialog(host, aJob.getCustomer().getName()+" HAS NOT PICKED UP THEIR "+aJob.getDevice().getType()+"\nGIVE THEM A CALL AT "+aJob.getCustomer().getNumber());
-            }            
-        }       
+                    }            
+                }       
+            }
+            
+            else if(event.getSource()==updBtn){
+                    String devStat ="";
+                    java.util.Enumeration<AbstractButton> buttonEnum = radios.getElements();
+                    while (buttonEnum.hasMoreElements()) {
+                        AbstractButton button = buttonEnum.nextElement();                        
+                        if (button.isSelected()) {
+                            devStat = button.getText(); // Get the text directly from the JRadioButton/AbstractButton
+                            break; 
+                        }
+                    }
+                NonEditTableMod tMod = (NonEditTableMod)devTable.getModel();
+                int devId = Integer.parseInt(tMod.getValueAt(devTable.getSelectedRow(), 0).toString());
+                int jobListIdx = Searcher.getDevViaId(devId);
+                if(jobListIdx!=-1){
+                    Loader.getJobs().get(jobListIdx).getDevice().setStatus(devStat);
+                    JOptionPane.showMessageDialog(host, "DEVICE STATUS UPDATED TO "+devStat+"!");
+                    Writer.writeTo();
+                }
             }
         }
     }
+    
+    private class tMouseListener implements MouseListener{
+
+        public void mouseClicked(MouseEvent e) {
+            if(e.getClickCount()==2){
+                devTable.setSelectionForeground(Color.red);
+                JOptionPane.showMessageDialog(host, "DEVICES LOADED");
+                NonEditTableMod tMod = (NonEditTableMod)devTable.getModel();
+                String dStat = tMod.getValueAt(devTable.getSelectedRow(), 4).toString();
+                statusL.setForeground(Color.red);
+                statusL.setText("DEVICE STATUS: "+dStat);   
+            }
+        }
+
+        public void mouseEntered(MouseEvent e) {
+            devTable.setSelectionForeground(Color.black);
+        }
+
+        public void mouseExited(MouseEvent e) {
+            devTable.setSelectionBackground(Color.white);
+        }
+
+        public void mousePressed(MouseEvent e) {
+            devTable.setSelectionBackground(Color.cyan);
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            devTable.setSelectionBackground(Color.white);
+        }
+    }
 }
+
