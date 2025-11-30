@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
@@ -44,7 +43,7 @@ public class SystemUI extends JFrame{
         viewJob = new JButton("VIEW/UPDATE JOB");
         viewDevices = new JButton("TRACK DEVICES");
         viewCust = new JButton("VIEW CUSTOMERS");
-        listPayments = new JButton("SHOW PAYMENTS");
+        listPayments = new JButton("GENERATE REPORT");
 
 
         addJob.addActionListener(coreListener);

@@ -4,9 +4,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-
 import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,6 +32,7 @@ public class CustomerTracker extends JPanel{
 
     public CustomerTracker(){
         setLayout(new GridLayout(3,1));
+        setBorder(BorderFactory.createLineBorder(Color.cyan));
         
         jobs = Loader.loadJobs("Jobs.dat");
 

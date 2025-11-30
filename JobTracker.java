@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,6 +31,8 @@ public class JobTracker extends JPanel{
 
     public JobTracker(){
         setLayout(new GridLayout(3,1));
+        setBorder(BorderFactory.createLineBorder(Color.cyan));
+
         jobs =Loader.loadJobs("Jobs.dat");
         String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Issue", "Notes","Diagnosis","Status"};
         devTableModel = new NonEditTableMod(columnNames,0);

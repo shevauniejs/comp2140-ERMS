@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -32,11 +32,12 @@ public class DeviceTracker extends JPanel{
     private JButton searchButton, updBtn, scanBtn;
 
     private ButtonGroup radios;
-    private JRadioButton pending, inprogress, complete, awaitingparts, pickup;
+    private JRadioButton pending, inprogress, complete, awaitingparts, pickup, collected;
     private ButtonListener buttonListener = new ButtonListener();
 
     public DeviceTracker(){
         setLayout(new GridLayout(3,1));
+		setBorder(BorderFactory.createLineBorder(Color.cyan));
 
         jobs = Loader.loadJobs("Jobs.dat");
         for(Job aJob:jobs){
@@ -74,18 +75,21 @@ public class DeviceTracker extends JPanel{
         awaitingparts = new JRadioButton("AWAITING PARTS");
         complete = new JRadioButton("REPAIR COMPLETE");
         pickup = new JRadioButton("PICKUP READY");
+        collected = new JRadioButton("COLLECTED");
 
         radios.add(pending);
         radios.add(awaitingparts);
         radios.add(inprogress);
         radios.add(complete);
         radios.add(pickup);
+        radios.add(collected);
 
         radPan = new JPanel();
         radPan.add(awaitingparts);
         radPan.add(inprogress);
         radPan.add(complete);
         radPan.add(pickup);
+        radPan.add(collected);
 
         subDetailsPanel.add(statusL, null, 0);
         subDetailsPanel.add(radPan, null, 1);
