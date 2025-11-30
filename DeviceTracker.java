@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -14,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class DeviceTracker extends JPanel{
+    private JPanel host = this;
     private ArrayList <Device> devices = new ArrayList<Device>(); 
     private ArrayList<Job> jobs;
     private JTable devTable;
@@ -27,6 +31,7 @@ public class DeviceTracker extends JPanel{
 
     private ButtonGroup radios;
     private JRadioButton pending, inprogress, complete, awaitingparts, pickup;
+    private ButtonListener mainListener = new ButtonListener();
 
     public DeviceTracker(){
         setLayout(new GridLayout(3,1));
@@ -37,7 +42,7 @@ public class DeviceTracker extends JPanel{
         }
 
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
-        devTableModel = new DefaultTableModel(columnNames,0);
+        devTableModel = new NonEditTableMod(columnNames,0);
         devTable = new JTable(devTableModel);
         showTable(devices);
         devTable.setPreferredScrollableViewportSize(new Dimension(1000, devices.size()*15 +20));
@@ -45,12 +50,14 @@ public class DeviceTracker extends JPanel{
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
 
         searchPanel = new JPanel(new GridLayout(3,1));
-        searchL = new JLabel("SEARCH BY STATUS or LOCATION");
+        searchL = new JLabel("SEARCH BY STATUS");
         searchTF = new JTextField();
         searchButton = new JButton("SEARCH");
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
+
+        searchButton.addActionListener(mainListener);
 
         subDetailsPanel = new JPanel(new GridLayout(2,2));
         statusL = new JLabel("DEVICE STATUS");
@@ -101,4 +108,23 @@ public class DeviceTracker extends JPanel{
         devTableModel.addRow(item); //from the model above, make it a new row        
     }
 
+    private class ButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+            if(event.getSource()==searchButton){
+                System.out.println("BUTTON CLICKED");
+                ArrayList<Device> filteredDevList = Searcher.devSearcher(devices, searchTF.getText());
+                
+                if(filteredDevList.size()>0){
+                    devTableModel.setRowCount(0);;
+                    showTable(filteredDevList);
+                    scrollPane.updateUI();
+                    updateUI();
+                }else{
+                    JOptionPane.showMessageDialog(host, "NO DEVICES NOT FOUND");
+                    devTableModel.setRowCount(0);
+                    showTable(devices);
+                }
+            }
+        }
+    }
 }
