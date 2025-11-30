@@ -44,7 +44,7 @@ public class JobTracker extends JPanel{
         searchPanel = new JPanel(new GridLayout(3,1));
         searchL = new JLabel("FILTER BY STATUS");
         searchTF = new JTextField();
-        searchButton = new JButton("FILTER");
+        searchButton = new JButton("FILTER|DISPLAY JOBS");
         searchPanel.add(searchL);
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
@@ -64,7 +64,6 @@ public class JobTracker extends JPanel{
         add(scrollPane);
         add(searchPanel);
         add(subDetailsPanel);
-        devTable.setSelectionBackground(Color.yellow);
     }
 
     private void showTable(ArrayList<Job> jList){
@@ -87,15 +86,16 @@ public class JobTracker extends JPanel{
                 System.out.println("BUTTON CLICKED");
                 ArrayList<Job> filteredJobList = Searcher.jobSearcher(jobs, searchTF.getText());
                     if(filteredJobList.size()!=0){
-                    devTableModel.setRowCount(0);;
-                    showTable(filteredJobList);
-                    scrollPane.updateUI();
-                    updateUI();
-                }else{
-                    JOptionPane.showMessageDialog(host, "JOB NOT FOUND");
-                    devTableModel.setRowCount(0);;
-                    showTable(jobs);
-                }
+                        devTableModel.setRowCount(0);
+                        showTable(filteredJobList);
+                        scrollPane.updateUI();
+                        updateUI();
+                    }else{
+                        JOptionPane.showMessageDialog(host, "JOB NOT FOUND");
+                        devTableModel.setRowCount(0);;
+                        showTable(jobs);
+                    }
+                    searchTF.setText("");
             }
         }
     }
@@ -105,31 +105,29 @@ public class JobTracker extends JPanel{
         @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getClickCount()==2){
+                devTable.setSelectionForeground(Color.red);
                 JOptionPane.showMessageDialog(host, "CLICKED");
             }
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            System.out.println("MOUSE ENTERED");
+            devTable.setSelectionForeground(Color.black);
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            // TODO Auto-generated method stub
-            System.out.println("EXITED");
+            devTable.setSelectionBackground(Color.white);
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            // TODO Auto-generated method stub
-            System.out.println("PRESSED");
+            devTable.setSelectionBackground(Color.cyan);
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            // TODO Auto-generated method stub
-            System.out.println("RELEASED");
+            devTable.setSelectionBackground(Color.white);
         }
         
     }

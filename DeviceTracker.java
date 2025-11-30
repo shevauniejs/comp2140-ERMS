@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -27,18 +29,18 @@ public class DeviceTracker extends JPanel{
     private JPanel searchPanel, subDetailsPanel, radPan;
     private JLabel searchL, statusL;
     private JTextField searchTF;
-    private JButton searchButton, updBtn;
+    private JButton searchButton, updBtn, scanBtn;
 
     private ButtonGroup radios;
     private JRadioButton pending, inprogress, complete, awaitingparts, pickup;
-    private ButtonListener mainListener = new ButtonListener();
+    private ButtonListener buttonListener = new ButtonListener();
 
     public DeviceTracker(){
         setLayout(new GridLayout(3,1));
 
         jobs = Loader.loadJobs("Jobs.dat");
         for(Job aJob:jobs){
-            devices.add(aJob.getDevice());
+            devices.add(aJob.getDevice());           
         }
 
         String [] columnNames = {"Device ID","Type", "Serial Number", "Brand", "Status","Date Received"};
@@ -57,12 +59,14 @@ public class DeviceTracker extends JPanel{
         searchPanel.add(searchTF);
         searchPanel.add(searchButton);
 
-        searchButton.addActionListener(mainListener);
+        searchButton.addActionListener(buttonListener);
 
         subDetailsPanel = new JPanel(new GridLayout(2,2));
         statusL = new JLabel("DEVICE STATUS");
+        scanBtn = new JButton("SCAN FOR OVERDUE/READY DEVICES");
         updBtn = new JButton("UPDATE");
        
+        scanBtn.addActionListener(buttonListener);
 
         radios = new ButtonGroup();
         pending = new JRadioButton("PENDING");
@@ -86,6 +90,7 @@ public class DeviceTracker extends JPanel{
         subDetailsPanel.add(statusL, null, 0);
         subDetailsPanel.add(radPan, null, 1);
         subDetailsPanel.add(updBtn, null, 2);
+        subDetailsPanel.add(scanBtn, null, 3);
         subDetailsPanel.setPreferredSize(new Dimension(10,150));
 
         add(scrollPane);
@@ -124,6 +129,13 @@ public class DeviceTracker extends JPanel{
                     devTableModel.setRowCount(0);
                     showTable(devices);
                 }
+            }
+            else if(event.getSource()==scanBtn){
+                for(Job aJob:jobs){
+                    if((ChronoUnit.DAYS.between(aJob.getDevice().getDate(), LocalDate.now())>=30)||(aJob.getDevice().getStatus().compareTo("READY")==0)){
+                        JOptionPane.showMessageDialog(host, aJob.getCustomer().getName()+" HAS NOT PICKED UP THEIR "+aJob.getDevice().getType()+"\nGIVE THEM A CALL AT "+aJob.getCustomer().getNumber());
+            }            
+        }       
             }
         }
     }
