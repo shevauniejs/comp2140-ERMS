@@ -48,7 +48,7 @@ public class CustomerTracker extends JPanel{
         searchPanel = new JPanel(new GridLayout(3,1));
         searchL = new JLabel("SEARCH BY NAME, EMAIL OR NUMBER");
         searchTF = new JTextField();
-        searchButton = new JButton("SEARCH");
+        searchButton = new JButton("SEARCH|REFRESH");
 
         searchButton.addActionListener(buttonListener);
 
@@ -116,6 +116,7 @@ public class CustomerTracker extends JPanel{
                 }else{
                     JOptionPane.showMessageDialog(host,"CUSTOMER NOT FOUND");
                 }
+                searchTF.setText("");
                 showTable(filteredCust);
                 scrollPane.updateUI();
                 updateUI();
@@ -123,11 +124,11 @@ public class CustomerTracker extends JPanel{
             else if(event.getSource()==updBtn){
                 NonEditTableMod tMod = (NonEditTableMod)cusTable.getModel();
                 int cId = Integer.parseInt(tMod.getValueAt(cusTable.getSelectedRow(), 0).toString());
-                Customer actCustomer = Searcher.getCusViaId(cId);
-                if(actCustomer!=null){
-                    actCustomer.setName(nameTF.getText());
-                    actCustomer.setEmail(emailTF.getText());
-                    actCustomer.setNumber(numberTF.getText());
+                int jobListIdx = Searcher.getCusViaId(cId);
+                if(jobListIdx!=-1){
+                    Loader.getJobs().get(jobListIdx).getCustomer().setName(nameTF.getText());
+                    Loader.getJobs().get(jobListIdx).getCustomer().setEmail(emailTF.getText());
+                    Loader.getJobs().get(jobListIdx).getCustomer().setNumber(numberTF.getText());
                     JOptionPane.showMessageDialog(host, "CUSTOMER INFORMATION UPDATED!");
                     Writer.writeTo();
                 }
@@ -140,7 +141,7 @@ public class CustomerTracker extends JPanel{
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount()==2){
                     cusTable.setSelectionForeground(Color.red);
-                    JOptionPane.showMessageDialog(host, "CLICKED");
+                    JOptionPane.showMessageDialog(host, "CUSTOMER LOADED");
                     NonEditTableMod tMod = (NonEditTableMod)cusTable.getModel();
                     String cName = tMod.getValueAt(cusTable.getSelectedRow(), 1).toString();
                     String cPhoneNumber = tMod.getValueAt(cusTable.getSelectedRow(), 2).toString();

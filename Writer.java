@@ -1,16 +1,23 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Writer {
     private static FileWriter DataWriter;
+    private static File file;
 
     public static void writeTo(){
         try {
+            file = new File("Jobs.dat");
+                } catch (Exception e) {
+                e.printStackTrace();
+            }
+        try {
             ArrayList <Job> tempJobs = Loader.getJobs();
-            DataWriter  = new FileWriter("Jobs.dat");
+            file.delete();
+            DataWriter  = new FileWriter("Jobs.dat", true);
             for(Job job: tempJobs){
-                DataWriter = new FileWriter("Jobs.dat",true);
                 DataWriter.write(job.toString()+"\n");
             }
             DataWriter.close();

@@ -12,16 +12,17 @@ public class Searcher {
         return found;
     }
 
-    public static Customer getCusViaId(int id){
-        Customer cs = null;
-
-        for(Job j: Loader.getJobs()){
-            if(j.getCustomer().getCusId()==id){
-                cs = j.getCustomer();
+    public static int getCusViaId(int id){
+        int idFound=0, x;
+        for(x=0; x<Loader.getJobs().size();x++){
+            if(Loader.getJobs().get(x).getCustomer().getCusId()==id){
+                idFound = x;
                 break;
+            }else{
+                idFound=-1;
             }
         }
-        return cs;
+        return idFound;
     }
 
     public static Job cusSearcher(ArrayList<Job> jobList, String searchParam){

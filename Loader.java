@@ -8,12 +8,14 @@ public class Loader {
     private static ArrayList<Job>jobs;
 
     public Loader(){}
-
     
-    public static ArrayList<Job> getJobs(){
+    static{
         jobs = loadJobs("Jobs.dat");
+    }
+    public static ArrayList<Job> getJobs(){
         return jobs;
     }
+
     private static ArrayList<Job> loadJobs(String jobDat){
 
         Scanner job_scan = null; //Scanner to read from source
