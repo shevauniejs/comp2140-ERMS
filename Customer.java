@@ -13,6 +13,7 @@ public class Customer{
     FileWriter cusDataWriter;
 
     public Customer(int _cusId, String _name, String _number, String _email, Device _device){
+        System.out.println("Layer 2");
         this.name = _name;
         this.number = _number;
         this.email = _email;
@@ -21,6 +22,7 @@ public class Customer{
     }
 
     public Customer(String _name, String _number, String _email, Device _device){
+        System.out.println("Layer 2");
         this.name = _name;
         this.number = _number;
         this.email = _email;

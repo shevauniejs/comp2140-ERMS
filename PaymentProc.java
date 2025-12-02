@@ -23,6 +23,7 @@ public class PaymentProc extends JFrame{
     private Job currJob;
 
     public PaymentProc(Job aJob){
+        System.out.println("Layer 3");
         this.setPreferredSize(new Dimension(400,300));
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.setTitle("Payment");
@@ -94,6 +95,7 @@ public class PaymentProc extends JFrame{
                         jobDataWriter  = new FileWriter("Jobs.dat", true);
                         jobDataWriter.write(currJob.toString()+"\n");
                         jobDataWriter.close();
+                        System.out.println("JOB WRITTEN");
                     } catch (IOException e) {
                         //Auto-generated catch block
                         System.out.println("Issue writing to file..");

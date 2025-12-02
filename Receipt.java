@@ -13,6 +13,7 @@ public class Receipt extends JFrame{
     //private FileWriter receipt;
     private JTextArea recLabel;
     public Receipt(int _transID, String _details){
+        System.out.println("Layer 3");
         this.setTitle("Receipt Preview");
         this.details = _details;
         setDefaultCloseOperation(HIDE_ON_CLOSE);

@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Loader {
+    //Layer 3
     private static ArrayList<Job>jobs;
 
     public Loader(){}
     
     static{
         jobs = loadJobs("Jobs.dat");
+    }
+
+    public static ArrayList <Job> refresh(){
+        jobs = loadJobs("Jobs.dat");
+        return jobs;
     }
     public static ArrayList<Job> getJobs(){
         return jobs;
