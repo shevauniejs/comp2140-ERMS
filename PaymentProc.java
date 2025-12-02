@@ -95,6 +95,7 @@ public class PaymentProc extends JFrame{
                         jobDataWriter  = new FileWriter("Jobs.dat", true);
                         jobDataWriter.write(currJob.toString()+"\n");
                         jobDataWriter.close();
+                        System.out.println("JOB WRITTEN");
                     } catch (IOException e) {
                         //Auto-generated catch block
                         System.out.println("Issue writing to file..");

@@ -30,6 +30,7 @@ public class JobTracker extends JPanel{
 
     public JobTracker(){
         System.out.println("Layer 3");
+        Loader.refresh();
         setLayout(new GridLayout(3,1));
         setBorder(BorderFactory.createLineBorder(Color.cyan));
 
@@ -93,7 +94,7 @@ public class JobTracker extends JPanel{
                         updateUI();
                     }else{
                         JOptionPane.showMessageDialog(host, "JOB NOT FOUND");
-                        devTableModel.setRowCount(0);;
+                        devTableModel.setRowCount(0);
                         showTable(Loader.getJobs());
                     }
                     searchTF.setText("");

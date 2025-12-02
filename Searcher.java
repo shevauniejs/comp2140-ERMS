@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class Searcher {
     //Layer 3
-    public static ArrayList<Job> devSearcher(ArrayList<Job> jobList, String searchParam){
+    public static ArrayList<Job> devSearcher(ArrayList<Job> jobList, String searchParam){ //Search for job device w/ status
         ArrayList<Job> found = new ArrayList<Job>();
         for(Job jobInstance: jobList){
-            if(jobInstance.getDevice().getStatus().toLowerCase().contains(searchParam)|| (jobInstance.getDevice().getStatus().compareToIgnoreCase(searchParam)==0)){
+            if(jobInstance.getDevice().getStatus().contains(searchParam.toUpperCase())|| (jobInstance.getDevice().getStatus().compareToIgnoreCase(searchParam)==0)){
                 found.add(jobInstance);
             }
         }
@@ -68,7 +68,7 @@ public class Searcher {
     public static ArrayList<Job> jobSearcher(ArrayList<Job> jobList, String searchParam){
         ArrayList <Job> found = new ArrayList<Job>();
         for(Job jobInstance: jobList){
-            if(jobInstance.getDevice().getStatus().toLowerCase().contains(searchParam)){
+            if(jobInstance.getDevice().getStatus().contains(searchParam.toUpperCase())){
                 found.add(jobInstance);
             }
         }

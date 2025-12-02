@@ -13,6 +13,11 @@ public class Loader {
     static{
         jobs = loadJobs("Jobs.dat");
     }
+
+    public static ArrayList <Job> refresh(){
+        jobs = loadJobs("Jobs.dat");
+        return jobs;
+    }
     public static ArrayList<Job> getJobs(){
         return jobs;
     }
