@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Searcher {
-    
+    //Layer 3
     public static ArrayList<Job> devSearcher(ArrayList<Job> jobList, String searchParam){
         ArrayList<Job> found = new ArrayList<Job>();
         for(Job jobInstance: jobList){

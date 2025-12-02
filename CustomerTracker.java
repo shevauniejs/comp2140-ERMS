@@ -32,6 +32,7 @@ public class CustomerTracker extends JPanel{
     
 
     public CustomerTracker(){
+        System.out.println("Layer 3");
         setLayout(new GridLayout(3,1));
         setBorder(BorderFactory.createLineBorder(Color.cyan));
         

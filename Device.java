@@ -10,6 +10,7 @@ public class Device{
     FileWriter devDataWriter;   
     
     public Device(int _devId, String _type, String _serial, String _brand, String _status, LocalDate _date){
+        System.out.println("Layer 2");
         this.devId = _devId;
         this.type = _type;
         this.serial = _serial;
@@ -19,6 +20,7 @@ public class Device{
     }
 
     public Device(String _type, String _serial, String _brand,  String _status){
+        System.out.println("Layer 2");
         devId = calcId();
         this.type = _type;
         this.serial = _serial;

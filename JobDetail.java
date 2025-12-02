@@ -30,6 +30,7 @@ public class JobDetail extends JPanel{
         private JButton submitData;
 
     public JobDetail(){
+        System.out.println("Layer 2");
         cusNameL = new JLabel("CUSTOMER NAME:");
         cusNumberL = new JLabel("CUSTOMER PHONE NUMBER:");
         cusEmailL = new JLabel("CUSTOMER EMAIL:");

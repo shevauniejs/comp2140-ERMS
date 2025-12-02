@@ -23,6 +23,7 @@ public class SystemUI extends JFrame{
 
 
     public SystemUI(){
+        System.out.println("Layer 1");
         UI.setTitle("Electronic Repair MS");
         ButtonListener coreListener = new ButtonListener();
         UI.setDefaultCloseOperation(EXIT_ON_CLOSE);

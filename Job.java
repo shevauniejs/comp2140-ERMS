@@ -11,9 +11,10 @@ public class Job{
 
 
     public Job(int _jobId, Customer _customer, String _techIssue, String _diagnosis, String _techNotes, String _storagePlace,  double _jobCost, double _amtPaid){
+        System.out.println("Layer 2");
         this.jobCustomer = _customer;
         this.jobDevice = jobCustomer.getDevice();
-        this.jobCost =_jobCost;
+        this.jobCost =_jobCost;System.out.println("Layer 3");
         this.amntPaid = _amtPaid;
         this.techIssue = _techIssue;
         this.techDiagnosis = _diagnosis;
@@ -23,6 +24,7 @@ public class Job{
     }
 
     public Job(Customer _customer, String _techIssue, String _diagnosis, String _techNotes, String _storagePlace, double _jobCost, double _amtPaid){
+        System.out.println("Layer 2");
         this.jobCustomer = _customer;
         this.jobDevice = jobCustomer.getDevice();
         this.jobCost =_jobCost;

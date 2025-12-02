@@ -23,6 +23,7 @@ public class PaymentProc extends JFrame{
     private Job currJob;
 
     public PaymentProc(Job aJob){
+        System.out.println("Layer 3");
         this.setPreferredSize(new Dimension(400,300));
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.setTitle("Payment");

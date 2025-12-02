@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Writer {
+    //Layer 3
     private static FileWriter DataWriter;
     private static File file;
 

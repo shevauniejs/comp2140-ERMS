@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Loader {
+    //Layer 3
     private static ArrayList<Job>jobs;
 
     public Loader(){}
