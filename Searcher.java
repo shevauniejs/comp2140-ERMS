@@ -5,7 +5,7 @@ public class Searcher {
     public static ArrayList<Job> devSearcher(ArrayList<Job> jobList, String searchParam){ //Search for job device w/ status
         ArrayList<Job> found = new ArrayList<Job>();
         for(Job jobInstance: jobList){
-            if(jobInstance.getDevice().getStatus().contains(searchParam.toUpperCase())|| (jobInstance.getDevice().getStatus().compareToIgnoreCase(searchParam)==0)){
+            if(jobInstance.getDevice().getStatus().contains(searchParam.toUpperCase())|| jobInstance.getStoragePlace().contains(searchParam.toUpperCase())){
                 found.add(jobInstance);
             }
         }

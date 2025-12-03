@@ -34,7 +34,7 @@ public class JobTracker extends JPanel{
         setLayout(new GridLayout(3,1));
         setBorder(BorderFactory.createLineBorder(Color.cyan));
 
-        String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Issue", "Notes","Diagnosis","Status"};
+        String [] columnNames = {"Job ID","Customer Name", "Device Brand/Model", "Location","Issue", "Notes","Diagnosis","Status"};
         devTableModel = new NonEditTableMod(columnNames,0);
         devTable = new JTable(devTableModel);
         showTable(Loader.getJobs());
@@ -78,7 +78,7 @@ public class JobTracker extends JPanel{
     }
 
     private void addToTable(Job j){
-        String[] item={Integer.toString(j.getJobId()),""+j.getCustomer().getName(),""+ j.getDevice().getBrand_ModelInfo(),""+j.getIssue(),""+ j.getNotes(),""+j.getDiagnosis(),""+j.getDevice().getStatus()}; //Add U data to library, each as a string
+        String[] item={Integer.toString(j.getJobId()),""+j.getCustomer().getName(),""+ j.getDevice().getBrand_ModelInfo(),""+j.getStoragePlace(),""+j.getIssue(),""+ j.getNotes(),""+j.getDiagnosis(),""+j.getDevice().getStatus()}; //Add U data to library, each as a string
         devTableModel.addRow(item); //from the model above, make it a new row        
     }
 

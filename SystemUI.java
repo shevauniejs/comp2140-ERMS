@@ -28,9 +28,7 @@ public class SystemUI extends JFrame{
         ButtonListener coreListener = new ButtonListener();
         UI.setDefaultCloseOperation(EXIT_ON_CLOSE);
         UI.setPreferredSize(new Dimension(1600,900)); //frame size
-        //statLabel = new JLabel("STATUS");
-
-        optionsPanel = new JPanel(new GridLayout(4,1)); //left side has options to add job etc
+        optionsPanel = new JPanel(new GridLayout(3,1)); //left side has options to add job etc
         detailsPanel = new JPanel(); //right side shows details and fields
 
         optionsPanel.setBorder(BorderFactory.createLineBorder(Color.red));
@@ -56,7 +54,7 @@ public class SystemUI extends JFrame{
         viewCust.setPreferredSize(new Dimension(240,130));
         
         optionsPanel.add(addJob);
-        optionsPanel.add(viewJob);
+        //optionsPanel.add(viewJob);
         optionsPanel.add(viewDevices);
         optionsPanel.add(viewCust);
 
