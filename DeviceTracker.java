@@ -52,7 +52,7 @@ public class DeviceTracker extends JPanel{
         scrollPane = new JScrollPane(devTable); //Why are you here? I make your table visible :-)
 
         searchPanel = new JPanel(new GridLayout(3,1));
-        searchL = new JLabel("SEARCH BY STATUS");
+        searchL = new JLabel("SEARCH BY STATUS/LOCATION");
         searchTF = new JTextField();
         searchButton = new JButton("SEARCH|REFRESH");
         searchPanel.add(searchL);
@@ -155,7 +155,7 @@ public class DeviceTracker extends JPanel{
                         }
                     }
                 NonEditTableMod tMod = (NonEditTableMod)devTable.getModel();
-                int devId = Integer.parseInt(tMod.getValueAt(devTable.getSelectedRow(), 0).toString());
+                int devId = Integer.parseInt(tMod.getValueAt(devTable.getSelectedRow(), 1).toString());
                 int jobListIdx = Searcher.getDevViaId(devId);
                 if(jobListIdx!=-1){
                     Loader.getJobs().get(jobListIdx).getDevice().setStatus(devStat);
@@ -173,18 +173,18 @@ public class DeviceTracker extends JPanel{
                 devTable.setSelectionForeground(Color.red);
                 JOptionPane.showMessageDialog(host, "DEVICES LOADED");
                 NonEditTableMod tMod = (NonEditTableMod)devTable.getModel();
-                String dStat = tMod.getValueAt(devTable.getSelectedRow(), 4).toString();
+                String dStat = tMod.getValueAt(devTable.getSelectedRow(), 6).toString();
                 statusL.setForeground(Color.red);
                 statusL.setText("DEVICE STATUS: "+dStat);   
             }
         }
 
         public void mouseEntered(MouseEvent e) {
-            devTable.setSelectionForeground(Color.black);
+            devTable.setSelectionForeground(Color.red);
         }
 
         public void mouseExited(MouseEvent e) {
-            devTable.setSelectionBackground(Color.white);
+            devTable.setSelectionBackground(Color.black);
         }
 
         public void mousePressed(MouseEvent e) {
