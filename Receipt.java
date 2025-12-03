@@ -7,11 +7,19 @@ import java.nio.file.Paths;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+/** Stores receipts
+ * @author Shevaunie Senior
+ */
 
 public class Receipt extends JFrame{
     private String details;
     //private FileWriter receipt;
     private JTextArea recLabel;
+    /**
+     * Constructs a reciept
+     * @param _transID transaction ID unique to receipt
+     * @param _details details of the job
+     */
     public Receipt(int _transID, String _details){
         System.out.println("Layer 3");
         this.setTitle("Receipt Preview");
