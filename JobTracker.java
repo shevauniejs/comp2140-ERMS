@@ -16,6 +16,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+/**Job tracker redundant, replaced by Device tracker
+ * @author Shevaunie Senior
+ */
+
 public class JobTracker extends JPanel{
     private JPanel host = this;
     private JTable devTable;

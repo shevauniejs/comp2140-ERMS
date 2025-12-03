@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+/** Executes data entry of device, customer and repair job as a gui component
+ * @author Shevaunie Senior
+ */
 public class JobDetail extends JPanel{
         private JPanel devPanel = this;
         private JPanel subStatPanel;

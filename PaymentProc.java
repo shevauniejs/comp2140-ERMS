@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**Core payment processor 
+ * @author Shevaunie Senior
+ */
 public class PaymentProc extends JFrame{
     static int idCounter = 40000000;
     private int transactionId;
@@ -22,6 +25,10 @@ public class PaymentProc extends JFrame{
     private JFrame window = this;
     private Job currJob;
 
+    /**
+     * Constructor for Payment processor
+     * @param aJob accepts a job that is pending.
+     */
     public PaymentProc(Job aJob){
         System.out.println("Layer 3");
         this.setPreferredSize(new Dimension(400,300));
@@ -56,15 +63,27 @@ public class PaymentProc extends JFrame{
         window.pack();
     }
 
+    /**
+     * randomly generates a transaction ID
+     * @return transaction ID as int
+     */
     private int calcId(){
         ThreadLocalRandom random = ThreadLocalRandom.current();
         int rand = random.nextInt(0+1, 10000);
         return idCounter+ rand;
     }
+
+    /**
+     * gets the transaction ID 
+     * @return transaction ID as in
+     */
     public int getTransId() {
         return transactionId;
     } 
 
+    /**
+     * Button listener for buttons being shown
+     */
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event){
             if(event.getSource()==printReceipt){

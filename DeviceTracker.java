@@ -21,6 +21,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+/** Implements Device tracker as gui component
+ * @author Shevaunie Senior
+ */
 public class DeviceTracker extends JPanel{
     private JPanel host = this;
     private JTable devTable;
